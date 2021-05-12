@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfCalculator"
         mc:Ignorable="d"
-        Title="Calculator" Height="400" Width="400" WindowStartupLocation="CenterScreen">
+        Title="Calculator" MinHeight="400" MinWidth="400" Height="400" Width="400" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>
@@ -15,14 +15,14 @@
             <RowDefinition Height="40"/>
             <!--result-->
             <RowDefinition Height="40"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
             <!--buttons-->
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

@@ -36,6 +36,7 @@ namespace WpfCalculator.Math
             return a.GetValue() / dividingBy;
         }, 1);
         public static readonly Operator POWER = RegisterOperator('^', (a, b) => System.Math.Pow(a.GetValue(), b.GetValue()), 2);
+        public static readonly Operator MODULO = RegisterOperator('%', (a, b) => a.GetValue() % b.GetValue(), 1);
 
         public static Operator RegisterOperator(char operatorCharacter, Func<IMathComponent, IMathComponent, double> func, int priorityIndex)
         {
