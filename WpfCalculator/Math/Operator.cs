@@ -7,11 +7,13 @@ namespace WpfCalculator.Math
     {
         public char OperatorCharacter { get; }
         public Func<IMathComponent, IMathComponent, double> OperatorFunction { get; }
+        public int PriorityIndex { get; }
 
-        internal Operator(char operatorCharacter, Func<IMathComponent, IMathComponent, double> func)
+        internal Operator(char operatorCharacter, Func<IMathComponent, IMathComponent, double> func, int priorityIndex)
         {
             OperatorCharacter = operatorCharacter;
             OperatorFunction = func;
+            PriorityIndex = priorityIndex;
         }
 
         public double Combine(IMathComponent input1, IMathComponent input2)
@@ -24,19 +26,20 @@ namespace WpfCalculator.Math
     {
         private static List<Operator> operators = new List<Operator>();
 
-        public static readonly Operator ADD = RegisterOperator('+', (a, b) => a.GetValue() + b.GetValue());
-        public static readonly Operator SUBTRACT = RegisterOperator('-', (a, b) => a.GetValue() - b.GetValue());
-        public static readonly Operator MULTIPLY = RegisterOperator('*', (a, b) => a.GetValue() * b.GetValue());
+        public static readonly Operator ADD = RegisterOperator('+', (a, b) => a.GetValue() + b.GetValue(), 0);
+        public static readonly Operator SUBTRACT = RegisterOperator('-', (a, b) => a.GetValue() - b.GetValue(), 0);
+        public static readonly Operator MULTIPLY = RegisterOperator('*', (a, b) => a.GetValue() * b.GetValue(), 1);
         public static readonly Operator DIVIDE = RegisterOperator('/', (a, b) =>
         {
             double dividingBy = b.GetValue();
             if (dividingBy == 0) throw new DivideByZeroException();
             return a.GetValue() / dividingBy;
-        });
+        }, 1);
+        public static readonly Operator POWER = RegisterOperator('^', (a, b) => System.Math.Pow(a.GetValue(), b.GetValue()), 2);
 
-        public static Operator RegisterOperator(char operatorCharacter, Func<IMathComponent, IMathComponent, double> func)
+        public static Operator RegisterOperator(char operatorCharacter, Func<IMathComponent, IMathComponent, double> func, int priorityIndex)
         {
-            Operator @operator = new Operator(operatorCharacter, func);
+            Operator @operator = new Operator(operatorCharacter, func, priorityIndex);
             operators.Add(@operator);
             return @operator;
         }
