@@ -14,8 +14,14 @@ namespace WpfCalculator
     class Calculator
     {
         public Brush BackgroundBrush { get => errored ? Brushes.Red : Brushes.Black; }
-        public string OutputString { get; private set; } = "0";
+        public double OutputValue { get; private set; } = 0.0;
         private bool errored;
+
+        public void Clear()
+        {
+            errored = false;
+            OutputValue = 0;
+        }
 
         public void UpdateValue(string expression)
         {
@@ -24,11 +30,11 @@ namespace WpfCalculator
             try
             {
                 Expression expr = parser.Parse(expression);
-                OutputString = expr.GetValue().ToString();
+                OutputValue = expr.GetValue();
             }
-            catch (ExpressionException exception)
+            catch (ExpressionException)
             {
-                OutputString = exception.ToString();
+                OutputValue = 0;
                 errored = true;
             }
         }

@@ -12,10 +12,12 @@ namespace WpfCalculator.Math
     {
         public static readonly Regex NUMBER_COMPONENT_REGEX = new Regex("[0-9.]");
         private bool expectsNumber;
+        private ExpressionBuilder expressionBuilder;
 
         public ExpressionParser()
         {
             expectsNumber = true;
+            expressionBuilder = new ExpressionBuilder();
         }
 
         public Expression Parse(string expression)
@@ -28,7 +30,7 @@ namespace WpfCalculator.Math
                 if (expectsNumber)
                 {
                     // number or function
-                    double number = ReadNumber(expression, ref readerIndex);
+                    ParseValueType(expression, ref readerIndex);
                     expectsNumber = false;
                 }
                 else
@@ -37,6 +39,16 @@ namespace WpfCalculator.Math
                 }
             }
             return null;
+        }
+
+        public void ParseValueType(string expression, ref int readerIndex)
+        {
+            // number / function / expression
+        }
+
+        public void ParseOperator(string expression, ref int readerIndex)
+        {
+
         }
 
         public double ReadNumber(string expression, ref int readerIndex)

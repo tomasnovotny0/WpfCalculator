@@ -23,10 +23,16 @@ namespace WpfCalculator
 
         public void ParseCalculatorInput(string input)
         {
-            // 15+sqrt(12+12)+14*15+(1*2/3)^2
             if (input != null)
             {
-                Calculator.UpdateValue(input);
+                if (input.Length == 0)
+                {
+                    Calculator.Clear();
+                } 
+                else
+                {
+                    Calculator.UpdateValue(input);
+                }
                 OnPropertyChanged(nameof(Calculator));
             }
         }
