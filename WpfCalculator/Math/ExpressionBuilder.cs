@@ -59,52 +59,18 @@ namespace WpfCalculator.Math
             return new Expression(GroupComponents());
         }
 
-        private List<IMathComponent> GroupComponents()
+        private LinkedList<IMathComponent> GroupComponents()
         {
-            GroupHighPriorityOperators();
-            List<IMathComponent> compiled = new List<IMathComponent>();
-            if (components.Count < 3)
-            {
-                if (components.Count != 1)
-                {
-                    throw new InvalidExpressionSyntaxException("Invalid syntax");
-                }
-                compiled.Add(components.First.Value);
-                return compiled;
-            }
-            var root = components.First;
-            var op = root.Next;
-            var number2 = op.Next;
-            var number1 = root.Value;
-
-            while (true)
-            {
-                if (op.Value is OperatorComponent opComponent)
-                {
-                    OperatorInstance opInstance = new OperatorInstance(number1, number2.Value, opComponent.Operator);
-                    OperationComponent operationComponent = new OperationComponent(opInstance);
-                    compiled.Add(operationComponent);
-
-                    op = number2.Next;
-                    if (op == null) break;
-                    number2 = op.Next;
-                    // there has to be value when operator is defined
-                    if (number2 == null) throw new InvalidExpressionSyntaxException("Expression expected");
-
-                    number1 = operationComponent;
-                }
-                else
-                {
-                    throw new InvalidExpressionSyntaxException("Invalid expression");
-                }
-            }
-            return compiled;
+            GroupHighPriorityOperators(); // convert all elements to value types
+            return components;
         }
 
         private void GroupHighPriorityOperators()
         {
-            GroupHighPriorityOperators(2);
-            GroupHighPriorityOperators(1);
+            for (int i = 2; i >= 0; i--)
+            {
+                GroupHighPriorityOperators(i);
+            }
         }
 
         private void GroupHighPriorityOperators(int priority)
@@ -119,17 +85,17 @@ namespace WpfCalculator.Math
                     var prevComponent = node.Previous;
                     var nextComponent = node.Next;
                     if (nextComponent == null) throw new InvalidExpressionSyntaxException("Invalid expression");
-                    if (opComponent.Operator.PriorityIndex == priority)
+                    var nextOperator = nextComponent.Next;
+                    if ((int) opComponent.Operator.ExecutionPriority == priority)
                     {
                         OperationComponent operation = new OperationComponent(new OperatorInstance(prevComponent.Value, nextComponent.Value, opComponent.Operator));
-                        var nextOperator = nextComponent.Next;
                         components.Remove(prevComponent);
                         components.Remove(nextComponent);
                         components.AddBefore(node, operation);
                         components.Remove(node);
-                        if (nextOperator == null) break;
-                        node = nextOperator;
                     }
+                    if (nextOperator == null) break;
+                    node = nextOperator;
                 }
                 else
                 {

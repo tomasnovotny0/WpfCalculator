@@ -7,13 +7,13 @@ namespace WpfCalculator.Math
     {
         public char OperatorCharacter { get; }
         public Func<IMathComponent, IMathComponent, double> OperatorFunction { get; }
-        public int PriorityIndex { get; }
+        public ExecutionPriority ExecutionPriority { get; }
 
-        internal Operator(char operatorCharacter, Func<IMathComponent, IMathComponent, double> func, int priorityIndex)
+        internal Operator(char operatorCharacter, Func<IMathComponent, IMathComponent, double> func, ExecutionPriority executionPriority)
         {
             OperatorCharacter = operatorCharacter;
             OperatorFunction = func;
-            PriorityIndex = priorityIndex;
+            ExecutionPriority = executionPriority;
         }
 
         public double Combine(IMathComponent input1, IMathComponent input2)
@@ -26,21 +26,21 @@ namespace WpfCalculator.Math
     {
         private static List<Operator> operators = new List<Operator>();
 
-        public static readonly Operator ADD = RegisterOperator('+', (a, b) => a.GetValue() + b.GetValue(), 0);
-        public static readonly Operator SUBTRACT = RegisterOperator('-', (a, b) => a.GetValue() - b.GetValue(), 0);
-        public static readonly Operator MULTIPLY = RegisterOperator('*', (a, b) => a.GetValue() * b.GetValue(), 1);
+        public static readonly Operator ADD = RegisterOperator('+', (a, b) => a.GetValue() + b.GetValue(), ExecutionPriority.LOW);
+        public static readonly Operator SUBTRACT = RegisterOperator('-', (a, b) => a.GetValue() - b.GetValue(), ExecutionPriority.LOW);
+        public static readonly Operator MULTIPLY = RegisterOperator('*', (a, b) => a.GetValue() * b.GetValue(), ExecutionPriority.MEDIUM);
         public static readonly Operator DIVIDE = RegisterOperator('/', (a, b) =>
         {
             double dividingBy = b.GetValue();
             if (dividingBy == 0) throw new DivideByZeroException();
             return a.GetValue() / dividingBy;
-        }, 1);
-        public static readonly Operator POWER = RegisterOperator('^', (a, b) => System.Math.Pow(a.GetValue(), b.GetValue()), 2);
-        public static readonly Operator MODULO = RegisterOperator('%', (a, b) => a.GetValue() % b.GetValue(), 1);
+        }, ExecutionPriority.MEDIUM);
+        public static readonly Operator POWER = RegisterOperator('^', (a, b) => System.Math.Pow(a.GetValue(), b.GetValue()), ExecutionPriority.HIGH);
+        public static readonly Operator MODULO = RegisterOperator('%', (a, b) => a.GetValue() % b.GetValue(), ExecutionPriority.MEDIUM);
 
-        public static Operator RegisterOperator(char operatorCharacter, Func<IMathComponent, IMathComponent, double> func, int priorityIndex)
+        public static Operator RegisterOperator(char operatorCharacter, Func<IMathComponent, IMathComponent, double> func, ExecutionPriority executionPriority)
         {
-            Operator @operator = new Operator(operatorCharacter, func, priorityIndex);
+            Operator @operator = new Operator(operatorCharacter, func, executionPriority);
             operators.Add(@operator);
             return @operator;
         }
@@ -54,5 +54,10 @@ namespace WpfCalculator.Math
             }
             return null;
         }
+    }
+
+    public enum ExecutionPriority
+    {
+        LOW, MEDIUM, HIGH
     }
 }

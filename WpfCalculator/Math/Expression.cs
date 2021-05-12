@@ -8,14 +8,14 @@ namespace WpfCalculator.Math
 {
     public class Expression : IMathComponent
     {
-        private List<IMathComponent> expressionComponents;
+        private LinkedList<IMathComponent> expressionComponents;
 
-        public Expression() : this(new List<IMathComponent>())
+        public Expression() : this(new LinkedList<IMathComponent>())
         {
             
         }
 
-        public Expression(List<IMathComponent> components)
+        public Expression(LinkedList<IMathComponent> components)
         {
             expressionComponents = components;
         }
