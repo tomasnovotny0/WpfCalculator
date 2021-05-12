@@ -18,4 +18,12 @@ namespace WpfCalculator.Exceptions
 
         }
     }
+
+    public class InvalidExpressionSyntaxException : ExpressionException
+    {
+        public InvalidExpressionSyntaxException(string message) : base(message)
+        {
+
+        }
+    }
 }

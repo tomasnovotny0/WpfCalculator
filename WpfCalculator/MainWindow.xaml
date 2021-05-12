@@ -32,7 +32,7 @@
         </Grid.ColumnDefinitions>
 
         <TextBox x:Name="InputTextBox" Grid.ColumnSpan="4" VerticalContentAlignment="Center" Padding="5" TextChanged="InputTextBox_TextChanged"/>
-        <Label x:Name="OutputLabel" Grid.ColumnSpan="4" Grid.Row="1" Content="{Binding Calculator.Result}" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="24" FontWeight="Bold" Foreground="{Binding Calculator.BackgroundBrush}"/>
+        <Label x:Name="OutputLabel" Grid.ColumnSpan="4" Grid.Row="1" Content="{Binding Calculator.OutputString}" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="24" FontWeight="Bold" Foreground="{Binding Calculator.BackgroundBrush}"/>
 
         <Button x:Name="ButtonModulo" Grid.Row="3" Content="%" Click="ButtonModulo_Click"/>
         <Button x:Name="ButtonPwr" Grid.Row="3" Grid.Column="1" Content="^" Click="ButtonPwr_Click"/>

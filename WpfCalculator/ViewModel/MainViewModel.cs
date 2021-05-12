@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -16,6 +17,8 @@ namespace WpfCalculator
         public MainViewModel()
         {
             Calculator = new Calculator();
+
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en");
         }
 
         public void ParseCalculatorInput(string input)

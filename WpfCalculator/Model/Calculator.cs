@@ -6,21 +6,30 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using WpfCalculator.Exceptions;
+using WpfCalculator.Math;
 
 namespace WpfCalculator
 {
     class Calculator
     {
         public Brush BackgroundBrush { get => errored ? Brushes.Red : Brushes.Black; }
-        public double Result { get; private set; } = 0;
+        public string OutputString { get; private set; } = "0";
         private bool errored;
 
-        public void UpdateValue(string textInput)
+        public void UpdateValue(string expression)
         {
             errored = false;
-            if (textInput == null || textInput.Length == 0)
+            ExpressionParser parser = new ExpressionParser();
+            try
             {
-                return;
+                Expression expr = parser.Parse(expression);
+                OutputString = expr.GetValue().ToString();
+            }
+            catch (ExpressionException exception)
+            {
+                OutputString = exception.ToString();
+                errored = true;
             }
         }
     }

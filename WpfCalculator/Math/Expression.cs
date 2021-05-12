@@ -6,7 +6,7 @@ using WpfCalculator.Exceptions;
 
 namespace WpfCalculator.Math
 {
-    public class Expression
+    public class Expression : IMathComponent
     {
         private List<IMathComponent> expressionComponents;
 
@@ -15,15 +15,19 @@ namespace WpfCalculator.Math
             expressionComponents = new List<IMathComponent>();
         }
 
-        public double Evaluate()
+        public double GetValue()
         {
-            int count = expressionComponents.Count;
-            if (count == 0)
+            double result = 0;
+            foreach (IMathComponent component in expressionComponents)
             {
-                throw new InvalidExpressionException(this);
+                result += component.GetValue();
             }
-            
-            return 0;
+            return result;
+        }
+
+        public bool IsFunction()
+        {
+            return false;
         }
     }
 }
