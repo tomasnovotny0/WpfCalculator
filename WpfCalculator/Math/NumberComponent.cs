@@ -20,9 +20,9 @@ namespace WpfCalculator.Math
             return Value;
         }
 
-        public bool IsFunction()
+        public bool IsValueType()
         {
-            return false;
+            return true;
         }
     }
 }

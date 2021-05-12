@@ -8,7 +8,7 @@ namespace WpfCalculator.Math
 {
     public interface IMathComponent
     {
-        bool IsFunction();
+        bool IsValueType();
 
         double GetValue();
     }

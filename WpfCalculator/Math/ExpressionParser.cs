@@ -27,12 +27,13 @@ namespace WpfCalculator.Math
             {
                 if (expectsNumber)
                 {
+                    // number or function
                     double number = ReadNumber(expression, ref readerIndex);
                     expectsNumber = false;
                 }
                 else
                 {
-
+                    // operator
                 }
             }
             return null;

@@ -10,9 +10,14 @@ namespace WpfCalculator.Math
     {
         private List<IMathComponent> expressionComponents;
 
-        public Expression()
+        public Expression() : this(new List<IMathComponent>())
         {
-            expressionComponents = new List<IMathComponent>();
+            
+        }
+
+        public Expression(List<IMathComponent> components)
+        {
+            expressionComponents = components;
         }
 
         public double GetValue()
@@ -25,9 +30,9 @@ namespace WpfCalculator.Math
             return result;
         }
 
-        public bool IsFunction()
+        public bool IsValueType()
         {
-            return false;
+            return true;
         }
     }
 }
