@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Markup;
 using WpfCalculator.Exceptions;
 
 namespace WpfCalculator.Math
@@ -60,18 +61,23 @@ namespace WpfCalculator.Math
 
         private List<IMathComponent> GroupComponents()
         {
-            // TODO first group operators with higher priorities
+            GroupHighPriorityOperators();
             List<IMathComponent> compiled = new List<IMathComponent>();
             if (components.Count < 3)
-                // TODO try parse single value type in case user enters uncommon expression
-                throw new InvalidExpressionSyntaxException("Invalid syntax");
+            {
+                if (components.Count != 1)
+                {
+                    throw new InvalidExpressionSyntaxException("Invalid syntax");
+                }
+                compiled.Add(components.First.Value);
+                return compiled;
+            }
             var root = components.First;
             var op = root.Next;
             var number2 = op.Next;
             var number1 = root.Value;
 
-            bool valid = true;
-            while (valid)
+            while (true)
             {
                 if (op.Value is OperatorComponent opComponent)
                 {
@@ -89,10 +95,47 @@ namespace WpfCalculator.Math
                 }
                 else
                 {
-                    valid = false;
+                    throw new InvalidExpressionSyntaxException("Invalid expression");
                 }
             }
             return compiled;
+        }
+
+        private void GroupHighPriorityOperators()
+        {
+            GroupHighPriorityOperators(2);
+            GroupHighPriorityOperators(1);
+        }
+
+        private void GroupHighPriorityOperators(int priority)
+        {
+            var node = components.First.Next; // skipping to second component, which should be operator component
+            if (node == null) return;
+            while (true)
+            {
+                IMathComponent component = node.Value;
+                if (component is OperatorComponent opComponent)
+                {
+                    var prevComponent = node.Previous;
+                    var nextComponent = node.Next;
+                    if (nextComponent == null) throw new InvalidExpressionSyntaxException("Invalid expression");
+                    if (opComponent.Operator.PriorityIndex == priority)
+                    {
+                        OperationComponent operation = new OperationComponent(new OperatorInstance(prevComponent.Value, nextComponent.Value, opComponent.Operator));
+                        var nextOperator = nextComponent.Next;
+                        components.Remove(prevComponent);
+                        components.Remove(nextComponent);
+                        components.AddBefore(node, operation);
+                        components.Remove(node);
+                        if (nextOperator == null) break;
+                        node = nextOperator;
+                    }
+                }
+                else
+                {
+                    throw new InvalidExpressionSyntaxException("Operator expected");
+                }
+            }
         }
 
         private IMathComponent[] ConvertToComponents(string[] expressionArray)
