@@ -4,7 +4,7 @@
     
     <Style x:Key="LightButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="FontSize" Value="18"/>
-        <Setter Property="Background" Value="#E7E8E9"/>
+        <Setter Property="Background" Value="#D7D8D9"/>
     </Style>
 
     <Style TargetType="{x:Type Button}">
@@ -12,5 +12,15 @@
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="Background" Value="#BBBBBB"/>
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" ContentSource="Content"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>
