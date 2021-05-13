@@ -56,13 +56,14 @@ namespace WpfCalculator.Math
 
         public Expression Build()
         {
-            return new Expression(GroupComponents());
+            IMathComponent tree = CreateComponentTree();
+            return new Expression(tree);
         }
 
-        private LinkedList<IMathComponent> GroupComponents()
+        private IMathComponent CreateComponentTree()
         {
             GroupHighPriorityOperators(); // convert all elements to value types
-            return components;
+            return components.First.Value;
         }
 
         private void GroupHighPriorityOperators()

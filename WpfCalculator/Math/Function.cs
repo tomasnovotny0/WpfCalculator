@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfCalculator.Exceptions;
 
 namespace WpfCalculator.Math
 {
@@ -16,7 +17,7 @@ namespace WpfCalculator.Math
         {
             InputCount = inputAmount;
             this.func = func;
-            this.functionName = functionName;
+            this.functionName = functionName.ToLower();
         }
 
         public double Calculate(IMathComponent[] parameters)
@@ -50,6 +51,18 @@ namespace WpfCalculator.Math
             Function function = Function.CreateFunction(funcKey, parameterCount, computeFunction);
             functions.Add(function);
             return function;
+        }
+
+        public static Function FindFunction(string functionName)
+        {
+            foreach (Function function in functions)
+            {
+                if (function.ToString() == functionName)
+                {
+                    return function;
+                }
+            }
+            throw new UnknownFunctionException(functionName);
         }
     }
 }

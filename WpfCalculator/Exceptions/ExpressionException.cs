@@ -26,4 +26,20 @@ namespace WpfCalculator.Exceptions
 
         }
     }
+
+    public class UnknownOperatorException : ExpressionException
+    {
+        public UnknownOperatorException(char operatorCharacter) : base($"Unknown operator {operatorCharacter}")
+        {
+
+        }
+    }
+
+    public class UnknownFunctionException : ExpressionException
+    {
+        public UnknownFunctionException(string function) : base($"Unknown function {function}")
+        {
+
+        }
+    }
 }

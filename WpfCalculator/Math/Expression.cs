@@ -8,26 +8,16 @@ namespace WpfCalculator.Math
 {
     public class Expression : IMathComponent
     {
-        private LinkedList<IMathComponent> expressionComponents;
+        private IMathComponent componentTree;
 
-        public Expression() : this(new LinkedList<IMathComponent>())
+        public Expression(IMathComponent componentTree)
         {
-            
-        }
-
-        public Expression(LinkedList<IMathComponent> components)
-        {
-            expressionComponents = components;
+            this.componentTree = componentTree;
         }
 
         public double GetValue()
         {
-            double result = 0;
-            foreach (IMathComponent component in expressionComponents)
-            {
-                result += component.GetValue();
-            }
-            return result;
+            return componentTree.GetValue();
         }
 
         public bool IsValueType()

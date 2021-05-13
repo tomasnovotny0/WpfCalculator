@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WpfCalculator.Exceptions;
 
 namespace WpfCalculator.Math
 {
@@ -52,7 +53,7 @@ namespace WpfCalculator.Math
                 if (op.OperatorCharacter == operatorCharacter)
                     return op;
             }
-            return null;
+            throw new UnknownOperatorException(operatorCharacter);
         }
     }
 
