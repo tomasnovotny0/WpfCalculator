@@ -71,6 +71,11 @@ namespace WpfCalculator.Math
         {
             StringBuilder functionString = new StringBuilder();
             functionString.Append(expression[readerIndex++]);
+            if (readerIndex >= expression.Length)
+            {
+                ParseNoParameterFunction(functionString.ToString());
+                return;
+            }
             while (readerIndex < expression.Length)
             {
                 char character = expression[readerIndex];
@@ -99,6 +104,7 @@ namespace WpfCalculator.Math
                     break;
                 }
             }
+            
         }
 
         private void ParseNoParameterFunction(string funcName)

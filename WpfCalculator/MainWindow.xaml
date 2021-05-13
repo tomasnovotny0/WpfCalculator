@@ -34,29 +34,30 @@
         <TextBox x:Name="InputTextBox" Grid.ColumnSpan="4" VerticalContentAlignment="Center" Padding="5" TextChanged="InputTextBox_TextChanged"/>
         <Label x:Name="OutputLabel" Grid.ColumnSpan="4" Grid.Row="1" Content="{Binding Calculator.OutputValue}" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="24" FontWeight="Bold" Foreground="{Binding Calculator.BackgroundBrush}"/>
 
+        <Button x:Name="ButtonClear" Grid.Row="3" Grid.Column="4" Content="C" Click="ButtonClear_Click"/>
         <Button x:Name="ButtonModulo" Grid.Row="3" Content="%" Click="ButtonModulo_Click"/>
         <Button x:Name="ButtonPwr" Grid.Row="3" Grid.Column="1" Content="^" Click="ButtonPwr_Click"/>
         <Button x:Name="ButtonPwr2" Grid.Row="3" Grid.Column="2" Content="x^2" Click="ButtonPwr2_Click"/>
-        <Button x:Name="ButtonDel" Grid.Row="3" Grid.Column="3" Content="DEL" Click="ButtonDel_Click"/>
+        <Button x:Name="ButtonDel" Grid.Row="4" Grid.Column="3" Content="DEL" Click="ButtonDel_Click"/>
         <Button x:Name="ButtonRightBracket" Grid.Row="4" Content="(" Click="ButtonRightBracket_Click"/>
         <Button x:Name="ButtonLeftBracket" Grid.Row="4" Grid.Column="1" Content=")" Click="ButtonLeftBracket_Click"/>
         <Button x:Name="ButtonSqrt" Grid.Row="4" Grid.Column="2" Content="Sqrt(x)" Click="ButtonSqrt_Click"/>
-        <Button x:Name="ButtonDivide" Grid.Row="4" Grid.Column="3" Content="/" Click="ButtonDivide_Click"/>
+        <Button x:Name="ButtonDivide" Grid.Row="5" Grid.Column="3" Content="/" Click="ButtonDivide_Click"/>
         <Button x:Name="Button7" Grid.Row="5" Content="7" Style="{StaticResource LightButton}" Click="Button7_Click"/>
         <Button x:Name="Button8" Grid.Row="5" Grid.Column="1" Content="8" Style="{StaticResource LightButton}" Click="Button8_Click"/>
         <Button x:Name="Button9" Grid.Row="5" Grid.Column="2" Content="9" Style="{StaticResource LightButton}" Click="Button9_Click"/>
-        <Button x:Name="ButtonMultiply" Grid.Row="5" Grid.Column="3" Content="*" Click="ButtonMultiply_Click"/>
+        <Button x:Name="ButtonMultiply" Grid.Row="6" Grid.Column="3" Content="*" Click="ButtonMultiply_Click"/>
         <Button x:Name="Button4" Grid.Row="6" Content="4" Style="{StaticResource LightButton}" Click="Button4_Click"/>
         <Button x:Name="Button5" Grid.Row="6" Grid.Column="1" Content="5" Style="{StaticResource LightButton}" Click="Button5_Click"/>
         <Button x:Name="Button6" Grid.Row="6" Grid.Column="2" Content="6" Style="{StaticResource LightButton}" Click="Button6_Click"/>
-        <Button x:Name="ButtonMinus" Grid.Row="6" Grid.Column="3" Content="-" Click="ButtonMinus_Click"/>
+        <Button x:Name="ButtonMinus" Grid.Row="7" Grid.Column="3" Content="-" Click="ButtonMinus_Click"/>
         <Button x:Name="Button1" Grid.Row="7" Grid.Column="0" Content="1" Style="{StaticResource LightButton}" Click="Button1_Click"/>
         <Button x:Name="Button2" Grid.Row="7" Grid.Column="1" Content="2" Style="{StaticResource LightButton}" Click="Button2_Click"/>
         <Button x:Name="Button3" Grid.Row="7" Grid.Column="2" Content="3" Style="{StaticResource LightButton}" Click="Button3_Click"/>
-        <Button x:Name="ButtonPlus" Grid.Row="7" Grid.Column="3" Content="+" Click="ButtonPlus_Click"/>
-        <Button x:Name="ButtonClear" Grid.Row="8" Grid.Column="0" Content="C" Click="ButtonClear_Click"/>
+        <Button x:Name="ButtonPlus" Grid.Row="8" Grid.Column="3" Content="+" Click="ButtonPlus_Click"/>
+        <Button x:Name="ButtonPi" Grid.Row="8" Grid.Column="0" Content="&#960;" Click="ButtonPi_Click"/>
         <Button x:Name="Button0" Grid.Row="8" Grid.Column="1" Content="0" Style="{StaticResource LightButton}" Click="Button0_Click"/>
-        <Button x:Name="ButtonDecSeparator" Grid.Row="8" Grid.Column="2" Content="," Click="ButtonDecSeparator_Click"/>
-        <Button x:Name="ButtonCompute" Grid.Row="8" Grid.Column="3" Content="=" Click="ButtonCompute_Click"/>
+        <Button x:Name="ButtonDecSeparator" Grid.Row="8" Grid.Column="2" Content="." Click="ButtonDecSeparator_Click"/>
+        
     </Grid>
 </Window>

@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfCalculator.Math;
 
 namespace WpfCalculator
 {
@@ -22,20 +23,9 @@ namespace WpfCalculator
     /// </summary>
     public partial class MainWindow : Window
     {
-        public readonly string decimalSeparator;
-
         public MainWindow()
         {
             InitializeComponent();
-            // sets decimal separator to correct character based on culture info
-            CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
-            decimalSeparator = cultureInfo.NumberFormat.NumberDecimalSeparator;
-            ButtonDecSeparator.Content = decimalSeparator;
-        }
-
-        private void ButtonCompute_Click(object sender, RoutedEventArgs e)
-        {
-            ((MainViewModel)DataContext).ParseCalculatorInput(InputTextBox.Text);
         }
 
         private void Button0_Click(object sender, RoutedEventArgs e)
@@ -90,17 +80,18 @@ namespace WpfCalculator
 
         private void ButtonModulo_Click(object sender, RoutedEventArgs e)
         {
-            InsertStringToTextBox("%");
+            InsertOperatorToTextBox(Operators.MODULO);
         }
 
         private void ButtonPwr_Click(object sender, RoutedEventArgs e)
         {
-            InsertStringToTextBox("^");
+            InsertOperatorToTextBox(Operators.POWER);
         }
 
         private void ButtonPwr2_Click(object sender, RoutedEventArgs e)
         {
-            InsertStringToTextBox("^2");
+            InsertOperatorToTextBox(Operators.POWER);
+            InsertStringToTextBox("2");
         }
 
         private void ButtonDel_Click(object sender, RoutedEventArgs e)
@@ -121,28 +112,27 @@ namespace WpfCalculator
 
         private void ButtonSqrt_Click(object sender, RoutedEventArgs e)
         {
-            // TODO replace with Function object
-            InsertStringToTextBox("sqrt()");
+            InsertFunctionToTextBox(Functions.SQRT);
         }
 
         private void ButtonDivide_Click(object sender, RoutedEventArgs e)
         {
-            InsertStringToTextBox("/");
+            InsertOperatorToTextBox(Operators.DIVIDE);
         }
 
         private void ButtonMultiply_Click(object sender, RoutedEventArgs e)
         {
-            InsertStringToTextBox("*");
+            InsertOperatorToTextBox(Operators.MULTIPLY);
         }
 
         private void ButtonMinus_Click(object sender, RoutedEventArgs e)
         {
-            InsertStringToTextBox("-");
+            InsertOperatorToTextBox(Operators.SUBTRACT);
         }
 
         private void ButtonPlus_Click(object sender, RoutedEventArgs e)
         {
-            InsertStringToTextBox("+");
+            InsertOperatorToTextBox(Operators.ADD);
         }
 
         private void ButtonClear_Click(object sender, RoutedEventArgs e)
@@ -152,7 +142,17 @@ namespace WpfCalculator
 
         private void ButtonDecSeparator_Click(object sender, RoutedEventArgs e)
         {
-            InsertStringToTextBox(decimalSeparator);
+            InsertStringToTextBox(".");
+        }
+
+        private void InsertOperatorToTextBox(Operator @operator)
+        {
+            InsertStringToTextBox(@operator.OperatorCharacter.ToString());
+        }
+
+        private void InsertFunctionToTextBox(Function function)
+        {
+            InsertStringToTextBox(function.ToString());
         }
 
         private void InsertStringToTextBox(string textToInsert)
@@ -163,6 +163,11 @@ namespace WpfCalculator
         private void InputTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             ((MainViewModel)DataContext).ParseCalculatorInput(InputTextBox.Text);
+        }
+
+        private void ButtonPi_Click(object sender, RoutedEventArgs e)
+        {
+            InsertFunctionToTextBox(Functions.PI);
         }
     }
 }
