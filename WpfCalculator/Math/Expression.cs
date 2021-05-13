@@ -17,7 +17,7 @@ namespace WpfCalculator.Math
 
         public double GetValue()
         {
-            return componentTree.GetValue();
+            return componentTree == null ? 0 : componentTree.GetValue();
         }
 
         public bool IsValueType()

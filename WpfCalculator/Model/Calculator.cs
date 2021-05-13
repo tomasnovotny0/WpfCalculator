@@ -37,6 +37,10 @@ namespace WpfCalculator
                 OutputValue = 0;
                 errored = true;
             }
+            catch (DivideByZeroException)
+            {
+                OutputValue = double.NaN;
+            }
         }
     }
 }

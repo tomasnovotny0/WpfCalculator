@@ -22,6 +22,10 @@ namespace WpfCalculator.Math
             expressionBuilder = new ExpressionBuilder();
         }
 
+        /*
+         * Known issues:
+         * - incorrect value when expression starts with '-' character
+         */
         public Expression Parse(string expression)
         {
             int length = expression.Length;
@@ -45,6 +49,8 @@ namespace WpfCalculator.Math
         public void ParseValueType(string expression, ref int readerIndex)
         {
             // number / function / expression
+            if (readerIndex >= expression.Length)
+                return;
             char firstCharacter = expression[readerIndex];
             if (firstCharacter == '(')
             {
@@ -128,6 +134,8 @@ namespace WpfCalculator.Math
         private void StartReading(string expression, out int readerIndex)
         {
             readerIndex = 0;
+            if (expression.Length == 0)
+                return;
             if (expression[readerIndex] == '(')
             {
                 ++readerIndex;
@@ -140,7 +148,7 @@ namespace WpfCalculator.Math
                 negative = true;
                 ++readerIndex;
             }
-            ReadNumber(expression, ref readerIndex, negative);
+            ParseValueType(expression, ref readerIndex);
             expectsNumber = false;
         }
 

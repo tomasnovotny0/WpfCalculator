@@ -63,6 +63,8 @@ namespace WpfCalculator.Math
         private IMathComponent CreateComponentTree()
         {
             GroupHighPriorityOperators(); // convert all elements to value types
+            if (components.First == null)
+                return null;
             return components.First.Value;
         }
 
@@ -76,6 +78,7 @@ namespace WpfCalculator.Math
 
         private void GroupHighPriorityOperators(int priority)
         {
+            if (components.First == null) return;
             var node = components.First.Next; // skipping to second component, which should be operator component
             if (node == null) return;
             while (true)

@@ -44,7 +44,8 @@ namespace WpfCalculator.Math
     {
         private static List<Function> functions = new List<Function>();
 
-        public static Function SQRT { get; } = RegisterFunction("sqrt", 1, args => System.Math.Sqrt(args[0].GetValue()));
+        public static readonly Function SQRT = RegisterFunction("sqrt", 1, args => System.Math.Sqrt(args[0].GetValue()));
+        public static readonly Function SQRTX = RegisterFunction("sqrtx", 2, args => System.Math.Pow(args[1].GetValue(), 1.0 / args[0].GetValue()));
 
         public static Function RegisterFunction(string funcKey, int parameterCount, Func<IMathComponent[], double> computeFunction)
         {

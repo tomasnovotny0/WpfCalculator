@@ -45,9 +45,16 @@ namespace CalculatorTests
         public void TestSimpleExpression()
         {
             string expressionString = "1+5-3";
-            ExpressionParser parser = new ExpressionParser();
             Expression expression = parser.Parse(expressionString);
             Assert.AreEqual(3.0, expression.GetValue(), 0.0001);
+        }
+
+        [TestMethod]
+        public void TestComplicatedExpression()
+        {
+            string expressionString = "16+sqrtx(3,64)+sqrt(4)*2^2";
+            Expression expression = parser.Parse(expressionString);
+            Assert.AreEqual(28.0, expression.GetValue(), 0.0001);
         }
     }
 }
