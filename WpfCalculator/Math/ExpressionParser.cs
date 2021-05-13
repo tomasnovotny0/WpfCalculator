@@ -96,6 +96,7 @@ namespace WpfCalculator.Math
                 else
                 {
                     ParseNoParameterFunction(functionString.ToString());
+                    break;
                 }
             }
         }

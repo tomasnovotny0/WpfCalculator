@@ -38,8 +38,6 @@ namespace WpfCalculator
             ((MainViewModel)DataContext).ParseCalculatorInput(InputTextBox.Text);
         }
 
-
-
         private void Button0_Click(object sender, RoutedEventArgs e)
         {
             InsertStringToTextBox("0");

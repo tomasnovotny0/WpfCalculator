@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfCalculator.Exceptions;
 
 namespace WpfCalculator.Math
 {
@@ -16,7 +17,7 @@ namespace WpfCalculator.Math
             Function = function;
             this.parameters = parameters;
             if (parameters.Length != Function.InputCount)
-                throw new ArgumentException();
+                throw new InvalidExpressionSyntaxException("Invalid parameter count");
         }
 
         public double Calculate()

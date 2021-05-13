@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfCalculator.Exceptions;
 
 namespace WpfCalculator.Math
 {
@@ -22,7 +23,7 @@ namespace WpfCalculator.Math
 
         public double GetValue()
         {
-            throw new NotImplementedException();
+            throw new InvalidExpressionSyntaxException("Invalid expression start");
         }
     }
 }

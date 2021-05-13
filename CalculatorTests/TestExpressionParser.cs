@@ -56,5 +56,12 @@ namespace CalculatorTests
             Expression expression = parser.Parse(expressionString);
             Assert.AreEqual(28.0, expression.GetValue(), 0.0001);
         }
+
+        [TestMethod]
+        public void TestNoParameterFunctionAndOperator()
+        {
+            string expressionString = "pi+";
+            Assert.ThrowsException<InvalidExpressionSyntaxException>(() => parser.Parse(expressionString));
+        }
     }
 }
