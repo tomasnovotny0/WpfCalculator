@@ -34,8 +34,16 @@ namespace WpfCalculator.Math
 
         public ExpressionBuilder Function(Function function, string funcExpression)
         {
-            string[] parameters = funcExpression.Split(',');
-            IMathComponent component = new OperationComponent(new FunctionInstance(function, ConvertToComponents(parameters)));
+            string[] parameters;
+            if (funcExpression.Length == 0)
+            {
+                parameters = new string[0];
+            }
+            else
+            {
+                parameters = funcExpression.Split(ExpressionParser.FUNCTION_PARAMETER_SEPARATOR);
+            }
+            IMathComponent component = new OperationComponent(new FunctionInstance(function, parameters.Length == 0 ? new IMathComponent[0] : ConvertToComponents(parameters)));
             components.AddLast(component);
             return this;
         }

@@ -78,6 +78,12 @@ namespace WpfCalculator.Math
                 {
                     functionString.Append(character);
                     ++readerIndex;
+
+                    if(readerIndex >= expression.Length)
+                    {
+                        ParseNoParameterFunction(functionString.ToString());
+                        break;
+                    }
                 }
                 else if (character == '(')
                 {
@@ -89,9 +95,16 @@ namespace WpfCalculator.Math
                 }
                 else
                 {
-                    throw new InvalidExpressionSyntaxException("Invalid function syntax");
+                    ParseNoParameterFunction(functionString.ToString());
                 }
             }
+        }
+
+        private void ParseNoParameterFunction(string funcName)
+        {
+            Function function = Functions.FindFunction(funcName);
+            if (function.InputCount != 0) throw new InvalidExpressionSyntaxException("Invalid function syntax");
+            expressionBuilder.Function(function, "");
         }
 
         public void ParseOperator(string expression, ref int readerIndex)

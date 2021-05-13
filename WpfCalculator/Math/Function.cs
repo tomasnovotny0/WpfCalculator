@@ -27,7 +27,7 @@ namespace WpfCalculator.Math
 
         public static Function CreateFunction(string functionName, int parameterAmount, Func<IMathComponent[], double> computeFunc)
         {
-            if (parameterAmount < 1)
+            if (parameterAmount < 0)
                 throw new ArgumentOutOfRangeException();
             if (computeFunc == null)
                 throw new NullReferenceException();
@@ -46,6 +46,10 @@ namespace WpfCalculator.Math
 
         public static readonly Function SQRT = RegisterFunction("sqrt", 1, args => System.Math.Sqrt(args[0].GetValue()));
         public static readonly Function SQRTX = RegisterFunction("sqrtx", 2, args => System.Math.Pow(args[1].GetValue(), 1.0 / args[0].GetValue()));
+        public static readonly Function SIN = RegisterFunction("sin", 1, args => System.Math.Sin(args[0].GetValue()));
+        public static readonly Function COS = RegisterFunction("cos", 1, args => System.Math.Cos(args[0].GetValue()));
+        public static readonly Function TAN = RegisterFunction("tan", 1, args => System.Math.Tan(args[0].GetValue()));
+        public static readonly Function PI = RegisterFunction("pi", 0, args => System.Math.PI);
 
         public static Function RegisterFunction(string funcKey, int parameterCount, Func<IMathComponent[], double> computeFunction)
         {

@@ -84,5 +84,12 @@ namespace CalculatorTests
             Expression expression = builder.Number(0).Operator(Operators.DIVIDE).Number(0).Build();
             Assert.ThrowsException<DivideByZeroException>(() => expression.GetValue());
         }
+
+        [TestMethod]
+        public void TestPi()
+        {
+            Expression expression = builder.Function(Functions.PI, "").Build();
+            Assert.AreEqual(System.Math.PI, expression.GetValue(), 0.0001);
+        }
     }
 }
