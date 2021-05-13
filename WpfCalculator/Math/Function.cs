@@ -50,6 +50,9 @@ namespace WpfCalculator.Math
         public static readonly Function COS = RegisterFunction("cos", 1, args => System.Math.Cos(args[0].GetValue()));
         public static readonly Function TAN = RegisterFunction("tan", 1, args => System.Math.Tan(args[0].GetValue()));
         public static readonly Function PI = RegisterFunction("pi", 0, args => System.Math.PI);
+        public static readonly Function E = RegisterFunction("e", 0, args => System.Math.E);
+        public static readonly Function RAD = RegisterFunction("rad", 1, args => System.Math.PI / 180.0 * args[0].GetValue());
+        public static readonly Function DEG = RegisterFunction("deg", 1, args => 180.0 / System.Math.PI * args[0].GetValue());
 
         public static Function RegisterFunction(string funcKey, int parameterCount, Func<IMathComponent[], double> computeFunction)
         {
