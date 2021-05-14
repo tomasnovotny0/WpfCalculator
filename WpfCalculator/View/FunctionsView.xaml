@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfCalculator.View"
-        xmlns:math="clr-namespace:WpfCalculator.Math"
+        xmlns:math="clr-namespace:WpfCalculator.Expressions"
         xmlns:vm="clr-namespace:WpfCalculator.ViewModel"
         mc:Ignorable="d"
         Title="Functions" MinHeight="400" Height="400" MinWidth="300" Width="300"

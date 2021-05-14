@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WpfCalculator.Exceptions;
-using WpfCalculator.Math;
+using WpfCalculator.Expressions;
 
 namespace CalculatorTests
 {

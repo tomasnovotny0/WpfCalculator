@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using WpfCalculator.Exceptions;
 
-namespace WpfCalculator.Math
+namespace WpfCalculator.Expressions
 {
     public sealed class Operator
     {

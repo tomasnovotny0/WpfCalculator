@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using WpfCalculator.Math;
+using WpfCalculator.Expressions;
 using WpfCalculator.ViewModel;
 
 namespace WpfCalculator.View

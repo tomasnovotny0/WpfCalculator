@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Globalization;
 using WpfCalculator.Exceptions;
-using WpfCalculator.Math;
+using WpfCalculator.Expressions;
 
 namespace CalculatorTests
 {
@@ -62,6 +62,14 @@ namespace CalculatorTests
         {
             string expressionString = "pi+";
             Assert.ThrowsException<InvalidExpressionSyntaxException>(() => parser.Parse(expressionString));
+        }
+
+        [TestMethod]
+        public void TestNegativeValuesInExpressions()
+        {
+            string expressionString = "-11-(-sqrt(121))";
+            Expression expression = parser.Parse(expressionString);
+            Assert.AreEqual(0.0, expression.GetValue());
         }
     }
 }

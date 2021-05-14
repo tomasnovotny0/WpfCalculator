@@ -1,5 +1,5 @@
 ﻿using System;
-using WpfCalculator.Math;
+using WpfCalculator.Expressions;
 
 namespace WpfCalculator.Exceptions
 {
@@ -13,7 +13,7 @@ namespace WpfCalculator.Exceptions
 
     public class InvalidExpressionException : ExpressionException
     {
-        public InvalidExpressionException(Expression expression) : base(string.Format($"{expression} is not valid"))
+        public InvalidExpressionException(Expressions.Expression expression) : base(string.Format($"{expression} is not valid"))
         {
 
         }

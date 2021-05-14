@@ -2,37 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
 using WpfCalculator.Exceptions;
 
-namespace WpfCalculator.Math
+namespace WpfCalculator.Expressions
 {
     public class ExpressionBuilder
     {
         private LinkedList<IMathComponent> components = new LinkedList<IMathComponent>();
 
-        /*
-         * Requirements
-         * Structure
-         * Value - Operation - Value - ... - Value
-         * 
-         * Value - Simple number component / Function component / Expression
-         * Operation - Operator component
-         * 
-         * - Create list with structure described above
-         * - Group components - Value + Operation + Value as one object
-         * - Return Expression object with this structure
-         */
-
         public ExpressionBuilder Number(double value)
         {
-            components.AddLast(new NumberComponent(value));
+            return Number(value, false);
+        }
+
+        public ExpressionBuilder Number(double value, bool negative)
+        {
+            IMathComponent component = new NumberComponent(value)
+            {
+                Negative = negative
+            };
+            components.AddLast(component);
             return this;
         }
 
         public ExpressionBuilder Function(Function function, string funcExpression)
+        {
+            return Function(function, funcExpression, false);
+        }
+
+        public ExpressionBuilder Function(Function function, string funcExpression, bool negative)
         {
             string[] parameters;
             if (funcExpression.Length == 0)
@@ -43,7 +45,10 @@ namespace WpfCalculator.Math
             {
                 parameters = funcExpression.Split(ExpressionParser.FUNCTION_PARAMETER_SEPARATOR);
             }
-            IMathComponent component = new OperationComponent(new FunctionInstance(function, parameters.Length == 0 ? new IMathComponent[0] : ConvertToComponents(parameters)));
+            IMathComponent component = new OperationComponent(new FunctionInstance(function, parameters.Length == 0 ? new IMathComponent[0] : ConvertToComponents(parameters)))
+            {
+                Negative = negative
+            };
             components.AddLast(component);
             return this;
         }
@@ -56,8 +61,14 @@ namespace WpfCalculator.Math
 
         public ExpressionBuilder Expression(string expression)
         {
+            return Expression(expression, false);
+        }
+
+        public ExpressionBuilder Expression(string expression, bool negative)
+        {
             ExpressionParser parser = new ExpressionParser();
             Expression expr = parser.Parse(expression);
+            expr.Negative = negative;
             components.AddLast(expr);
             return this;
         }

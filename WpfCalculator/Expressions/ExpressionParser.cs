@@ -6,15 +6,15 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WpfCalculator.Exceptions;
 
-namespace WpfCalculator.Math
+namespace WpfCalculator.Expressions
 {
-    public class ExpressionParser
+    public class ExpressionParser : IExpressionParser
     {
         public static readonly char FUNCTION_PARAMETER_SEPARATOR = ',';
         public static readonly Regex NUMBER_COMPONENT_REGEX = new Regex("[0-9.]");
         public static readonly Regex VALID_FUNCTION_CHARACTERS = new Regex("[a-zA-Z]");
         private bool expectsNumber;
-        private ExpressionBuilder expressionBuilder;
+        private readonly ExpressionBuilder expressionBuilder;
 
         public ExpressionParser()
         {
@@ -22,10 +22,6 @@ namespace WpfCalculator.Math
             expressionBuilder = new ExpressionBuilder();
         }
 
-        /*
-         * Known issues:
-         * - incorrect value when expression starts with '-' character
-         */
         public Expression Parse(string expression)
         {
             int length = expression.Length;
@@ -34,7 +30,7 @@ namespace WpfCalculator.Math
             {
                 if (expectsNumber)
                 {
-                    ParseValueType(expression, ref readerIndex);
+                    ParseValue(expression, ref readerIndex, false);
                     expectsNumber = false;
                 }
                 else
@@ -46,7 +42,7 @@ namespace WpfCalculator.Math
             return expressionBuilder.Build();
         }
 
-        public void ParseValueType(string expression, ref int readerIndex)
+        public void ParseValue(string expression, ref int readerIndex, bool negative)
         {
             // number / function / expression
             if (readerIndex >= expression.Length)
@@ -55,25 +51,33 @@ namespace WpfCalculator.Math
             if (firstCharacter == '(')
             {
                 ++readerIndex;
-                ParseExpression(expression, ref readerIndex);
+                ParseExpression(expression, ref readerIndex, negative);
             }
             else if (char.IsDigit(firstCharacter))
             {
-                ReadNumber(expression, ref readerIndex, false);
+                ReadNumber(expression, ref readerIndex, negative);
             }
             else if (VALID_FUNCTION_CHARACTERS.IsMatch(firstCharacter.ToString()))
             {
-                ParseFunction(expression, ref readerIndex);
+                ParseFunction(expression, ref readerIndex, negative);
             }
         }
 
-        private void ParseFunction(string expression, ref int readerIndex)
+        public void ParseOperator(string expression, ref int readerIndex)
+        {
+            char character = expression[readerIndex];
+            Operator @operator = Operators.FindOperator(character);
+            expressionBuilder.Operator(@operator);
+            ++readerIndex;
+        }
+
+        private void ParseFunction(string expression, ref int readerIndex, bool negative)
         {
             StringBuilder functionString = new StringBuilder();
             functionString.Append(expression[readerIndex++]);
             if (readerIndex >= expression.Length)
             {
-                ParseNoParameterFunction(functionString.ToString());
+                ParseNoParameterFunction(functionString.ToString(), negative);
                 return;
             }
             while (readerIndex < expression.Length)
@@ -86,7 +90,7 @@ namespace WpfCalculator.Math
 
                     if(readerIndex >= expression.Length)
                     {
-                        ParseNoParameterFunction(functionString.ToString());
+                        ParseNoParameterFunction(functionString.ToString(), negative);
                         break;
                     }
                 }
@@ -95,34 +99,26 @@ namespace WpfCalculator.Math
                     Function function = Functions.FindFunction(functionString.ToString());
                     readerIndex++;
                     string parameters = GetExpression(expression, ref readerIndex);
-                    expressionBuilder.Function(function, parameters);
+                    expressionBuilder.Function(function, parameters, negative);
                     break;
                 }
                 else
                 {
-                    ParseNoParameterFunction(functionString.ToString());
+                    ParseNoParameterFunction(functionString.ToString(), negative);
                     break;
                 }
             }
             
         }
 
-        private void ParseNoParameterFunction(string funcName)
+        private void ParseNoParameterFunction(string funcName, bool negative)
         {
             Function function = Functions.FindFunction(funcName);
             if (function.InputCount != 0) throw new InvalidExpressionSyntaxException("Invalid function syntax");
-            expressionBuilder.Function(function, "");
+            expressionBuilder.Function(function, "", negative);
         }
 
-        public void ParseOperator(string expression, ref int readerIndex)
-        {
-            char character = expression[readerIndex];
-            Operator @operator = Operators.FindOperator(character);
-            expressionBuilder.Operator(@operator);
-            ++readerIndex;
-        }
-
-        public void ReadNumber(string expression, ref int readerIndex, bool invert)
+        public void ReadNumber(string expression, ref int readerIndex, bool negative)
         {
             StringBuilder builder = new StringBuilder();
             bool valid = true;
@@ -139,16 +135,11 @@ namespace WpfCalculator.Math
                     valid = false;
                 }
             }
-            double result;
-            if (!double.TryParse(builder.ToString(), out result))
+            if (!double.TryParse(builder.ToString(), out double result))
             {
                 throw new InvalidExpressionSyntaxException("Number expected");
             }
-            if (invert)
-            {
-                result = -result;
-            }
-            expressionBuilder.Number(result);
+            expressionBuilder.Number(result, negative);
         }
 
         private void StartReading(string expression, out int readerIndex)
@@ -159,7 +150,7 @@ namespace WpfCalculator.Math
             if (expression[readerIndex] == '(')
             {
                 ++readerIndex;
-                ParseExpression(expression, ref readerIndex);
+                ParseExpression(expression, ref readerIndex, false);
                 return;
             }
             bool negative = false;
@@ -168,13 +159,13 @@ namespace WpfCalculator.Math
                 negative = true;
                 ++readerIndex;
             }
-            ParseValueType(expression, ref readerIndex);
+            ParseValue(expression, ref readerIndex, negative);
             expectsNumber = false;
         }
 
-        private void ParseExpression(string expression, ref int readerIndex)
+        private void ParseExpression(string expression, ref int readerIndex, bool negative)
         {
-            expressionBuilder.Expression(GetExpression(expression, ref readerIndex));
+            expressionBuilder.Expression(GetExpression(expression, ref readerIndex), negative);
         }
 
         public static string GetExpression(string expression, ref int readerIndex)

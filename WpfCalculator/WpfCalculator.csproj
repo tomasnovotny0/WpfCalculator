@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Expressions\IExpressionParser.cs" />
     <Compile Include="ViewModel\FunctionsViewModel.cs" />
     <Compile Include="View\FunctionsView.xaml.cs">
       <DependentUpon>FunctionsView.xaml</DependentUpon>
@@ -68,14 +69,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Exceptions\ExpressionException.cs" />
-    <Compile Include="Math\Expression.cs" />
-    <Compile Include="Math\ExpressionBuilder.cs" />
-    <Compile Include="Math\ExpressionParser.cs" />
-    <Compile Include="Math\FunctionInstance.cs" />
-    <Compile Include="Math\IOperation.cs" />
-    <Compile Include="Math\OperationComponent.cs" />
-    <Compile Include="Math\OperatorComponent.cs" />
-    <Compile Include="Math\OperatorInstance.cs" />
+    <Compile Include="Expressions\Expression.cs" />
+    <Compile Include="Expressions\ExpressionBuilder.cs" />
+    <Compile Include="Expressions\ExpressionParser.cs" />
+    <Compile Include="Expressions\FunctionInstance.cs" />
+    <Compile Include="Expressions\IOperation.cs" />
+    <Compile Include="Expressions\OperationComponent.cs" />
+    <Compile Include="Expressions\OperatorComponent.cs" />
+    <Compile Include="Expressions\OperatorInstance.cs" />
     <Compile Include="Model\Calculator.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -92,10 +93,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Math\Function.cs" />
-    <Compile Include="Math\IMathComponent.cs" />
-    <Compile Include="Math\NumberComponent.cs" />
-    <Compile Include="Math\Operator.cs" />
+    <Compile Include="Expressions\Function.cs" />
+    <Compile Include="Expressions\IMathComponent.cs" />
+    <Compile Include="Expressions\NumberComponent.cs" />
+    <Compile Include="Expressions\Operator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

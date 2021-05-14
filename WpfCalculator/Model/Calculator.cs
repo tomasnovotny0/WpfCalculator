@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using WpfCalculator.Exceptions;
-using WpfCalculator.Math;
+using WpfCalculator.Expressions;
 
 namespace WpfCalculator
 {
@@ -29,7 +29,7 @@ namespace WpfCalculator
             ExpressionParser parser = new ExpressionParser();
             try
             {
-                Expression expr = parser.Parse(expression);
+                Expressions.Expression expr = parser.Parse(expression);
                 OutputValue = expr.GetValue();
             }
             catch (ExpressionException)

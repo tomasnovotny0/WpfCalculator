@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WpfCalculator.Exceptions;
 
-namespace WpfCalculator.Math
+namespace WpfCalculator.Expressions
 {
     public sealed class Function
     {
