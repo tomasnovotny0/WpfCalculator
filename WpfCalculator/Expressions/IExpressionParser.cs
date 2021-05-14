@@ -2,7 +2,9 @@
 {
     public interface IExpressionParser
     {
-        Expression Parse(string input);
+        ConstructNewParser ParserFactory { get; set; }
+
+        Expression Parse(string expression);
 
         void ParseValue(string expression, ref int readerIndex, bool isNegativeValue);
 

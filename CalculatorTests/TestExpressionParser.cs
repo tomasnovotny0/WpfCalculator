@@ -8,13 +8,13 @@ namespace CalculatorTests
     [TestClass]
     public class TestExpressionParser
     {
-        private ExpressionParser parser;
+        private ExpressionProcessor processor;
 
         [TestInitialize]
         public void TestInit()
         {
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en");
-            parser = new ExpressionParser();
+            processor = new ExpressionProcessor(() => new ExpressionParser());
         }
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace CalculatorTests
         public void TestSimpleExpression()
         {
             string expressionString = "1+5-3";
-            Expression expression = parser.Parse(expressionString);
+            Expression expression = processor.ProcessExpression(expressionString);
             Assert.AreEqual(3.0, expression.GetValue(), 0.0001);
         }
 
@@ -53,7 +53,7 @@ namespace CalculatorTests
         public void TestComplicatedExpression()
         {
             string expressionString = "16+sqrtx(3,64)+sqrt(4)*2^2";
-            Expression expression = parser.Parse(expressionString);
+            Expression expression = processor.ProcessExpression(expressionString);
             Assert.AreEqual(28.0, expression.GetValue(), 0.0001);
         }
 
@@ -61,14 +61,14 @@ namespace CalculatorTests
         public void TestNoParameterFunctionAndOperator()
         {
             string expressionString = "pi+";
-            Assert.ThrowsException<InvalidExpressionSyntaxException>(() => parser.Parse(expressionString));
+            Assert.ThrowsException<InvalidExpressionSyntaxException>(() => processor.ProcessExpression(expressionString));
         }
 
         [TestMethod]
         public void TestNegativeValuesInExpressions()
         {
             string expressionString = "-11-(-sqrt(121))";
-            Expression expression = parser.Parse(expressionString);
+            Expression expression = processor.ProcessExpression(expressionString);
             Assert.AreEqual(0.0, expression.GetValue());
         }
     }

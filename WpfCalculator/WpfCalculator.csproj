@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Expressions\ExpressionProcessor.cs" />
     <Compile Include="Expressions\IExpressionParser.cs" />
     <Compile Include="ViewModel\FunctionsViewModel.cs" />
     <Compile Include="View\FunctionsView.xaml.cs">

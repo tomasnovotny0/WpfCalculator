@@ -5,7 +5,13 @@ namespace WpfCalculator.Expressions
 {
     public class ExpressionBuilder
     {
+        private readonly ConstructNewParser parserFactory;
         private readonly LinkedList<IMathComponent> components = new LinkedList<IMathComponent>();
+
+        public ExpressionBuilder(ConstructNewParser _parserFactory)
+        {
+            parserFactory = _parserFactory;
+        }
 
         public ExpressionBuilder Number(double value)
         {
@@ -59,7 +65,7 @@ namespace WpfCalculator.Expressions
 
         public ExpressionBuilder Expression(string expression, bool negative)
         {
-            ExpressionParser parser = new ExpressionParser();
+            IExpressionParser parser = parserFactory.Invoke();
             Expression expr = parser.Parse(expression);
             expr.Negative = negative;
             components.AddLast(expr);
@@ -70,6 +76,11 @@ namespace WpfCalculator.Expressions
         {
             IMathComponent tree = CreateComponentTree();
             return new Expression(tree);
+        }
+
+        public void Reset()
+        {
+            components.Clear();
         }
 
         private IMathComponent CreateComponentTree()
@@ -125,7 +136,7 @@ namespace WpfCalculator.Expressions
             IMathComponent[] mathComponents = new IMathComponent[expressionArray.Length];
             for (int i = 0; i < expressionArray.Length; i++)
             {
-                ExpressionParser parser = new ExpressionParser();
+                IExpressionParser parser = parserFactory.Invoke();
                 Expression expression = parser.Parse(expressionArray[i]);
                 mathComponents[i] = expression;
             }

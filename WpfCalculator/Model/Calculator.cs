@@ -9,7 +9,13 @@ namespace WpfCalculator
     {
         public Brush BackgroundBrush { get => errored ? Brushes.Red : Brushes.Black; }
         public double OutputValue { get; private set; } = 0.0;
+        public ExpressionProcessor ExpressionProcessor { get; }
         private bool errored;
+
+        public Calculator()
+        {
+            ExpressionProcessor = new ExpressionProcessor(() => new ExpressionParser());
+        }
 
         public void Clear()
         {
@@ -20,10 +26,9 @@ namespace WpfCalculator
         public void UpdateValue(string expression)
         {
             errored = false;
-            ExpressionParser parser = new ExpressionParser();
             try
             {
-                Expressions.Expression expr = parser.Parse(expression);
+                Expression expr = ExpressionProcessor.ProcessExpression(expression);
                 OutputValue = expr.GetValue();
             }
             catch (ExpressionException)
