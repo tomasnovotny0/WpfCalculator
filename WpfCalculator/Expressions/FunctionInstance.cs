@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfCalculator.Exceptions;
+﻿using WpfCalculator.Exceptions;
 
 namespace WpfCalculator.Expressions
 {
     public sealed class FunctionInstance : IOperation
     {
         public Function Function { get; }
-        private IMathComponent[] parameters;
+        private readonly IMathComponent[] parameters;
 
         public FunctionInstance(Function function, IMathComponent[] parameters)
         {

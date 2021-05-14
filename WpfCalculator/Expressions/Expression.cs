@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using WpfCalculator.Exceptions;
-
-namespace WpfCalculator.Expressions
+﻿namespace WpfCalculator.Expressions
 {
     public class Expression : IMathComponent
     {
         public bool Negative { get; set; }
-        private IMathComponent componentTree;
+        private readonly IMathComponent componentTree;
 
         public Expression(IMathComponent componentTree)
         {

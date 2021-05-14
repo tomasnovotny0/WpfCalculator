@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Markup;
+﻿using System.Collections.Generic;
 using WpfCalculator.Exceptions;
 
 namespace WpfCalculator.Expressions
 {
     public class ExpressionBuilder
     {
-        private LinkedList<IMathComponent> components = new LinkedList<IMathComponent>();
+        private readonly LinkedList<IMathComponent> components = new LinkedList<IMathComponent>();
 
         public ExpressionBuilder Number(double value)
         {

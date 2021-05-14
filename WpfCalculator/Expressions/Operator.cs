@@ -25,7 +25,7 @@ namespace WpfCalculator.Expressions
 
     public static class Operators
     {
-        private static List<Operator> operators = new List<Operator>();
+        private static readonly List<Operator> operators = new List<Operator>();
 
         public static readonly Operator ADD = RegisterOperator('+', (a, b) => a.GetValue() + b.GetValue(), ExecutionPriority.LOW);
         public static readonly Operator SUBTRACT = RegisterOperator('-', (a, b) => a.GetValue() - b.GetValue(), ExecutionPriority.LOW);

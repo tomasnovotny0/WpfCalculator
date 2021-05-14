@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WpfCalculator.Expressions
+﻿namespace WpfCalculator.Expressions
 {
     public sealed class OperatorInstance : IOperation
     {
         public Operator Operator { get; }
-        private IMathComponent number1, number2;
+        private readonly IMathComponent number1, number2;
 
         public OperatorInstance(IMathComponent number1, IMathComponent number2, Operator @operator)
         {

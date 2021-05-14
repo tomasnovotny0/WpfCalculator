@@ -1,5 +1,4 @@
 ﻿using System;
-using WpfCalculator.Expressions;
 
 namespace WpfCalculator.Exceptions
 {
