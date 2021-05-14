@@ -70,24 +70,24 @@ namespace WpfCalculator.Expressions
     {
         public static readonly List<Function> FUNCTIONS = new List<Function>();
 
-        public static readonly Function PI = new FunctionBuilder().FunctionKey("pi").Description("Standart mathematical constant").Value(args => System.Math.PI).Build();
-        public static readonly Function E = new FunctionBuilder().FunctionKey("e").Description("Standart mathematical constant").Value(args => System.Math.E).Build();
+        public static readonly Function PI = new FunctionBuilder().FunctionKey("pi").Description("Standart mathematical constant").Value(args => Math.PI).Build();
+        public static readonly Function E = new FunctionBuilder().FunctionKey("e").Description("Standart mathematical constant").Value(args => Math.E).Build();
         public static readonly Function SQRT = new FunctionBuilder().FunctionKey("sqrt").Description("Square root function").Argument("n", "Input number")
-            .Value(args => System.Math.Sqrt(args[0].GetValue())).Build();
+            .Value(args => Math.Sqrt(args[0].GetValue())).Build();
         public static readonly Function SQRTX = new FunctionBuilder().FunctionKey("sqrtx").Description("Root of n function").Argument("n", "Root parameter").Argument("x", "Input value")
-            .Value(args => System.Math.Pow(args[1].GetValue(), 1.0 / args[0].GetValue())).Build();
+            .Value(args => Math.Pow(args[1].GetValue(), 1.0 / args[0].GetValue())).Build();
         public static readonly Function ABS = new FunctionBuilder().FunctionKey("abs").Description("Return absolute value of n").Argument("n", "Input")
-            .Value(args => System.Math.Abs(args[0].GetValue())).Build();
+            .Value(args => Math.Abs(args[0].GetValue())).Build();
         public static readonly Function SIN = new FunctionBuilder().FunctionKey("sin").Description("Sine function").Argument("a", "Angle in radians")
-            .Value(args => System.Math.Sin(args[0].GetValue())).Build();
+            .Value(args => Math.Sin(args[0].GetValue())).Build();
         public static readonly Function COS = new FunctionBuilder().FunctionKey("cos").Description("Cosine function").Argument("a", "Angle in radians")
-            .Value(args => System.Math.Cos(args[0].GetValue())).Build();
+            .Value(args => Math.Cos(args[0].GetValue())).Build();
         public static readonly Function TAN = new FunctionBuilder().FunctionKey("tan").Description("Tangens function").Argument("a", "Angle in radians")
-            .Value(args => System.Math.Tan(args[0].GetValue())).Build();
+            .Value(args => Math.Tan(args[0].GetValue())).Build();
         public static readonly Function RAD = new FunctionBuilder().FunctionKey("rad").Description("Converts degress to radians").Argument("d", "Degrees")
-            .Value(args => System.Math.Sin(args[0].GetValue())).Build();
+            .Value(args => Math.Sin(args[0].GetValue())).Build();
         public static readonly Function DEG = new FunctionBuilder().FunctionKey("deg").Description("Converts radians to degress").Argument("r", "Radians")
-            .Value(args => System.Math.Sin(args[0].GetValue())).Build();
+            .Value(args => Math.Sin(args[0].GetValue())).Build();
 
         internal static Function RegisterFunction(Function function)
         {
