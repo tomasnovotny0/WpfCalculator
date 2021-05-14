@@ -9,6 +9,7 @@ namespace WpfCalculator.Math
     public class NumberComponent : IMathComponent
     {
         public double Value { get; }
+        public bool Negative { get; set; }
 
         public NumberComponent(double value)
         {
@@ -17,12 +18,7 @@ namespace WpfCalculator.Math
         
         public double GetValue()
         {
-            return Value;
-        }
-
-        public bool IsValueType()
-        {
-            return true;
+            return Negative ? -Value : Value;
         }
     }
 }

@@ -8,6 +8,7 @@ namespace WpfCalculator.Math
 {
     public class OperationComponent : IMathComponent
     {
+        public bool Negative { get; set; }
         public IOperation Operation { get; }
 
         public OperationComponent(IOperation operation)
@@ -15,14 +16,9 @@ namespace WpfCalculator.Math
             Operation = operation;
         }
 
-        public bool IsValueType()
-        {
-            return true;
-        }
-
         public double GetValue()
         {
-            return Operation.Calculate();
+            return Negative ? -Operation.Calculate() : Operation.Calculate();
         }
     }
 }

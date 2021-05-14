@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfCalculator.Math;
+using WpfCalculator.View;
 
 namespace WpfCalculator
 {
@@ -110,11 +111,6 @@ namespace WpfCalculator
             InsertStringToTextBox(")");
         }
 
-        private void ButtonSqrt_Click(object sender, RoutedEventArgs e)
-        {
-            InsertFunctionToTextBox(Functions.SQRT);
-        }
-
         private void ButtonDivide_Click(object sender, RoutedEventArgs e)
         {
             InsertOperatorToTextBox(Operators.DIVIDE);
@@ -152,7 +148,7 @@ namespace WpfCalculator
 
         private void InsertFunctionToTextBox(Function function)
         {
-            InsertStringToTextBox(function.ToString());
+            InsertStringToTextBox(function.FunctionSignature);
         }
 
         private void InsertStringToTextBox(string textToInsert)
@@ -168,6 +164,12 @@ namespace WpfCalculator
         private void ButtonPi_Click(object sender, RoutedEventArgs e)
         {
             InsertFunctionToTextBox(Functions.PI);
+        }
+
+        private void ButtonFunctions_Click(object sender, RoutedEventArgs e)
+        {
+            FunctionsView view = new FunctionsView(InputTextBox);
+            view.ShowDialog();
         }
     }
 }

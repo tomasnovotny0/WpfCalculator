@@ -10,15 +10,11 @@ namespace WpfCalculator.Math
     public class OperatorComponent : IMathComponent
     {
         public Operator Operator { get; }
+        public bool Negative { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public OperatorComponent(Operator @operator)
         {
             Operator = @operator;
-        }
-
-        public bool IsValueType()
-        {
-            return false;
         }
 
         public double GetValue()

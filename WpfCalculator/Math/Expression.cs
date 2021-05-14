@@ -8,6 +8,7 @@ namespace WpfCalculator.Math
 {
     public class Expression : IMathComponent
     {
+        public bool Negative { get; set; }
         private IMathComponent componentTree;
 
         public Expression(IMathComponent componentTree)
@@ -17,12 +18,7 @@ namespace WpfCalculator.Math
 
         public double GetValue()
         {
-            return componentTree == null ? 0 : componentTree.GetValue();
-        }
-
-        public bool IsValueType()
-        {
-            return true;
+            return componentTree == null ? 0 : Negative ? -componentTree.GetValue() : componentTree.GetValue();
         }
     }
 }

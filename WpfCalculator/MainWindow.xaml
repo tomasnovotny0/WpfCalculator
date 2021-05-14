@@ -9,6 +9,9 @@
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <ResourceDictionary Source="Style/ButtonStyles.xaml"/>
+    </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <!--input-->
@@ -41,7 +44,7 @@
         <Button x:Name="ButtonDel" Grid.Row="4" Grid.Column="3" Content="DEL" Click="ButtonDel_Click"/>
         <Button x:Name="ButtonRightBracket" Grid.Row="4" Content="(" Click="ButtonRightBracket_Click"/>
         <Button x:Name="ButtonLeftBracket" Grid.Row="4" Grid.Column="1" Content=")" Click="ButtonLeftBracket_Click"/>
-        <Button x:Name="ButtonSqrt" Grid.Row="4" Grid.Column="2" Content="Sqrt(x)" Click="ButtonSqrt_Click"/>
+        <Button x:Name="ButtonFunctions" Grid.Row="4" Grid.Column="2" Content="Functions" FontStyle="Italic" Click="ButtonFunctions_Click"/>
         <Button x:Name="ButtonDivide" Grid.Row="5" Grid.Column="3" Content="/" Click="ButtonDivide_Click"/>
         <Button x:Name="Button7" Grid.Row="5" Content="7" Style="{StaticResource LightButton}" Click="Button7_Click"/>
         <Button x:Name="Button8" Grid.Row="5" Grid.Column="1" Content="8" Style="{StaticResource LightButton}" Click="Button8_Click"/>
