@@ -10,7 +10,7 @@
         <local:MainViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <ResourceDictionary Source="Style/ButtonStyles.xaml"/>
+        <ResourceDictionary Source="/Style/ButtonStyles.xaml"/>
     </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>

@@ -6,7 +6,6 @@ namespace WpfCalculator.Expressions
 {
     public class ExpressionParser : IExpressionParser
     {
-        public static readonly char FUNCTION_PARAMETER_SEPARATOR = ',';
         public static readonly Regex NUMBER_COMPONENT_REGEX = new Regex("[0-9.]");
         public static readonly Regex VALID_FUNCTION_CHARACTERS = new Regex("[a-zA-Z]");
         public ConstructNewParser ParserFactory { get; set; }

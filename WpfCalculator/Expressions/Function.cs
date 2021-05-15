@@ -7,6 +7,7 @@ namespace WpfCalculator.Expressions
 {
     public sealed class Function
     {
+        public static readonly char FUNCTION_PARAMETER_SEPARATOR = ',';
         public int InputCount { get; private set; }
         public string FunctionName { get; }
         public string FunctionSignature { get; }

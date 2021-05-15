@@ -12,6 +12,9 @@
     <Window.DataContext>
         <vm:FunctionsViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <ResourceDictionary Source="/Style/ButtonStyles.xaml"/>
+    </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>

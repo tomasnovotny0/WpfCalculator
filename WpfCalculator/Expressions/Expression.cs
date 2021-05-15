@@ -1,5 +1,9 @@
 ﻿namespace WpfCalculator.Expressions
 {
+    /// <summary>
+    /// Represents some kind of mathematical expression
+    /// which is held in <see cref="Expression.componentTree"/> object.
+    /// </summary>
     public class Expression : IMathComponent
     {
         public bool Negative { get; set; }

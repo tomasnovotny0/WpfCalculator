@@ -4,7 +4,7 @@ namespace WpfCalculator.Expressions
 {
     public delegate IExpressionParser ConstructNewParser();
 
-    public class ExpressionProcessor
+    public sealed class ExpressionProcessor
     {
         public ConstructNewParser ParserFactory { get; }
 
