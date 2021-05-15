@@ -120,6 +120,7 @@ namespace WpfCalculator.Expressions
         public ExpressionBuilder Expression(string expression, bool negative)
         {
             IExpressionParser parser = parserFactory.Invoke();
+            parser.ParserFactory = parserFactory;
             Expression expr = parser.Parse(expression);
             expr.Negative = negative;
             components.AddLast(expr);
@@ -190,6 +191,7 @@ namespace WpfCalculator.Expressions
             for (int i = 0; i < expressionArray.Length; i++)
             {
                 IExpressionParser parser = parserFactory.Invoke();
+                parser.ParserFactory = parserFactory;
                 Expression expression = parser.Parse(expressionArray[i]);
                 mathComponents[i] = expression;
             }
