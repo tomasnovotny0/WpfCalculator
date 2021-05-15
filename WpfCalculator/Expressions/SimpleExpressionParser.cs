@@ -4,12 +4,29 @@ using WpfCalculator.Exceptions;
 
 namespace WpfCalculator.Expressions
 {
-    public class ExpressionParser : IExpressionParser
+    /// <summary>
+    /// Parser implementation which can parse
+    /// <list type="bullet">
+    /// <item>
+    ///     <description>Raw numbers</description>
+    /// </item>
+    /// <item>
+    ///     <description>Functions</description>
+    /// </item>
+    /// <item>
+    ///     <description>Expressions</description>
+    /// </item>
+    /// <item>
+    ///     <description>Operators</description>
+    /// </item>
+    /// </list>
+    /// </summary>
+    public class SimpleExpressionParser : IExpressionParser
     {
         public static readonly Regex NUMBER_COMPONENT_REGEX = new Regex("[0-9.]");
         public static readonly Regex VALID_FUNCTION_CHARACTERS = new Regex("[a-zA-Z]");
         public ConstructNewParser ParserFactory { get; set; }
-        private ExpressionBuilder expressionBuilder;
+        protected ExpressionBuilder expressionBuilder;
         private bool ReadingValue;
 
         public Expression Parse(string expression)
@@ -33,7 +50,12 @@ namespace WpfCalculator.Expressions
             return expressionBuilder.Build();
         }
 
-        public virtual void StartReading(string expression, out int readerIndex)
+        /// <summary>
+        /// Reads first component of <paramref name="expression"/>. Handles negative expressions
+        /// </summary>
+        /// <param name="expression">Expression which is being parsed</param>
+        /// <param name="readerIndex">Position in expression</param>
+        protected virtual void StartReading(string expression, out int readerIndex)
         {
             readerIndex = 0;
             if (expression.Length == 0)
@@ -53,7 +75,13 @@ namespace WpfCalculator.Expressions
             ParseValue(expression, ref readerIndex, negative);
         }
 
-        public virtual void ParseValue(string expression, ref int readerIndex, bool negative)
+        /// <summary>
+        /// Reads value from expression.
+        /// </summary>
+        /// <param name="expression">Expression which is being parsed</param>
+        /// <param name="readerIndex">Position in expression</param>
+        /// <param name="negative">Whether parsed value should be negative</param>
+        protected virtual void ParseValue(string expression, ref int readerIndex, bool negative)
         {
             // number / function / expression
             if (readerIndex >= expression.Length)
@@ -74,7 +102,12 @@ namespace WpfCalculator.Expressions
             }
         }
 
-        public virtual void ParseOperator(string expression, ref int readerIndex)
+        /// <summary>
+        /// Reads operator from expression
+        /// </summary>
+        /// <param name="expression">Expression which is being parsed</param>
+        /// <param name="readerIndex">Position in expression</param>
+        protected virtual void ParseOperator(string expression, ref int readerIndex)
         {
             char character = expression[readerIndex];
             Operator @operator = Operators.FindOperator(character);
@@ -82,16 +115,13 @@ namespace WpfCalculator.Expressions
             ++readerIndex;
         }
 
-        public Expression GetResult()
-        {
-            return expressionBuilder.Build();
-        }
-
-        public virtual void ClearState()
-        {
-
-        }
-
+        /// <summary>
+        /// Returns expression which is inside brackets.
+        /// Expression (x+y) will return x+y string
+        /// </summary>
+        /// <param name="expression">Expression which is being parsed</param>
+        /// <param name="readerIndex">Position in expression</param>
+        /// <returns></returns>
         public static string GetExpression(string expression, ref int readerIndex)
         {
             int beginIndex = readerIndex;
@@ -117,7 +147,13 @@ namespace WpfCalculator.Expressions
             throw new InvalidExpressionSyntaxException("Invalid expression");
         }
 
-        private void ParseFunction(string expression, ref int readerIndex, bool negative)
+        /// <summary>
+        /// Reads function from expression string
+        /// </summary>
+        /// <param name="expression">Expression which is being parsed</param>
+        /// <param name="readerIndex">Position in expression</param>
+        /// <param name="negative">Whether function value should be negative</param>
+        protected void ParseFunction(string expression, ref int readerIndex, bool negative)
         {
             StringBuilder functionString = new StringBuilder();
             functionString.Append(expression[readerIndex++]);
@@ -157,14 +193,25 @@ namespace WpfCalculator.Expressions
             
         }
 
-        private void ParseNoParameterFunction(string funcName, bool negative)
+        /// <summary>
+        /// Reads function which has no parameters
+        /// </summary>
+        /// <param name="funcName">Function key - such as <code>sin</code></param>
+        /// <param name="negative">Whether function value should be negative</param>
+        protected void ParseNoParameterFunction(string funcName, bool negative)
         {
             Function function = Functions.FindFunction(funcName);
             if (function.InputCount != 0) throw new InvalidExpressionSyntaxException("Invalid function syntax");
             expressionBuilder.Function(function, "", negative);
         }
 
-        private void ReadNumber(string expression, ref int readerIndex, bool negative)
+        /// <summary>
+        /// Reads number from expression
+        /// </summary>
+        /// <param name="expression">Expression being parsed</param>
+        /// <param name="readerIndex">Position in expression</param>
+        /// <param name="negative">Whether number should be negative</param>
+        protected void ReadNumber(string expression, ref int readerIndex, bool negative)
         {
             StringBuilder builder = new StringBuilder();
             bool valid = true;
@@ -188,7 +235,13 @@ namespace WpfCalculator.Expressions
             expressionBuilder.Number(result, negative);
         }
 
-        private void ParseExpression(string expression, ref int readerIndex, bool negative)
+        /// <summary>
+        /// Reads sub-expression from <paramref name="expression"/>
+        /// </summary>
+        /// <param name="expression">Expression being parsed</param>
+        /// <param name="readerIndex">Position in expression</param>
+        /// <param name="negative">Whether expression value should be negative</param>
+        protected void ParseExpression(string expression, ref int readerIndex, bool negative)
         {
             expressionBuilder.Expression(GetExpression(expression, ref readerIndex), negative);
         }

@@ -13,7 +13,7 @@ namespace CalculatorTests
         [TestInitialize]
         public void TestInit()
         {
-            builder = new ExpressionBuilder(() => new ExpressionParser());
+            builder = new ExpressionBuilder(() => new SimpleExpressionParser());
         }
 
         [TestMethod]

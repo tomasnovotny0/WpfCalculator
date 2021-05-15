@@ -14,7 +14,7 @@ namespace WpfCalculator
 
         public Calculator()
         {
-            ExpressionProcessor = new ExpressionProcessor(() => new ExpressionParser());
+            ExpressionProcessor = new ExpressionProcessor(() => new SimpleExpressionParser());
         }
 
         public void Clear()

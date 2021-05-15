@@ -72,7 +72,7 @@
     <Compile Include="Exceptions\ExpressionException.cs" />
     <Compile Include="Expressions\Expression.cs" />
     <Compile Include="Expressions\ExpressionBuilder.cs" />
-    <Compile Include="Expressions\ExpressionParser.cs" />
+    <Compile Include="Expressions\SimpleExpressionParser.cs" />
     <Compile Include="Expressions\FunctionInstance.cs" />
     <Compile Include="Expressions\IOperation.cs" />
     <Compile Include="Expressions\OperationComponent.cs" />

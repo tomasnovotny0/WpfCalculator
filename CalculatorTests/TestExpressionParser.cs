@@ -14,7 +14,7 @@ namespace CalculatorTests
         public void TestInit()
         {
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en");
-            processor = new ExpressionProcessor(() => new ExpressionParser());
+            processor = new ExpressionProcessor(() => new SimpleExpressionParser());
         }
 
         [TestMethod]
@@ -22,7 +22,7 @@ namespace CalculatorTests
         {
             string expr = "(15+3)";
             int readIndex = 1;
-            Assert.AreEqual("15+3", ExpressionParser.GetExpression(expr, ref readIndex));
+            Assert.AreEqual("15+3", SimpleExpressionParser.GetExpression(expr, ref readIndex));
         }
 
         [TestMethod]
@@ -30,7 +30,7 @@ namespace CalculatorTests
         {
             string expr = "(1+(15*(5-2)))";
             int readIndex = 1;
-            Assert.AreEqual("1+(15*(5-2))", ExpressionParser.GetExpression(expr, ref readIndex));
+            Assert.AreEqual("1+(15*(5-2))", SimpleExpressionParser.GetExpression(expr, ref readIndex));
         }
 
         [TestMethod]
@@ -38,7 +38,7 @@ namespace CalculatorTests
         {
             string expr = "((1+1)*7";
             int readIndex = 1;
-            Assert.ThrowsException<InvalidExpressionSyntaxException>(() => ExpressionParser.GetExpression(expr, ref readIndex));
+            Assert.ThrowsException<InvalidExpressionSyntaxException>(() => SimpleExpressionParser.GetExpression(expr, ref readIndex));
         }
 
         [TestMethod]
