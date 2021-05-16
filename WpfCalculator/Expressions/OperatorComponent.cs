@@ -3,8 +3,14 @@ using WpfCalculator.Exceptions;
 
 namespace WpfCalculator.Expressions
 {
+    /// <summary>
+    /// Math component containing <see cref="Expressions.Operator"/> object
+    /// </summary>
     public class OperatorComponent : IMathComponent
     {
+        /// <summary>
+        /// Operator of this component
+        /// </summary>
         public Operator Operator { get; }
         public bool Negative { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 

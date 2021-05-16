@@ -5,13 +5,35 @@ using WpfCalculator.Exceptions;
 
 namespace WpfCalculator.Expressions
 {
+    /// <summary>
+    /// Function represents some kind of operation which returns result based on it's inputs.
+    /// For example abs(x) function return absolute value of x, or pi returns PI value
+    /// </summary>
     public sealed class Function
     {
+        /// <summary>
+        /// Character which separates function parameters
+        /// </summary>
         public static readonly char FUNCTION_PARAMETER_SEPARATOR = ',';
+        /// <summary>
+        /// Amount of inputs this function requires
+        /// </summary>
         public int InputCount { get; private set; }
+        /// <summary>
+        /// Name of the function. Like 'sin'
+        /// </summary>
         public string FunctionName { get; }
+        /// <summary>
+        /// Function signature. Composed of name and parameter names such as sqrt(n,x)
+        /// </summary>
         public string FunctionSignature { get; }
+        /// <summary>
+        /// Used in functions window to let user know more information about this function
+        /// </summary>
         public string DescriptionText { get; }
+        /// <summary>
+        /// Calculates result based on input parameters
+        /// </summary>
         private Func<IMathComponent[], double> Func { get; }
 
         internal Function(FunctionBuilder builder)
@@ -23,6 +45,11 @@ namespace WpfCalculator.Expressions
             FunctionSignature = CreateFunctionSignature(builder.arguments);
         }
 
+        /// <summary>
+        /// Calculates value based on input parameters
+        /// </summary>
+        /// <param name="parameters">Input parameters. Count must match this function's expected parameter count</param>
+        /// <returns>Result based on input parameters</returns>
         public double Calculate(IMathComponent[] parameters)
         {
             return Func.Invoke(parameters);
@@ -65,6 +92,9 @@ namespace WpfCalculator.Expressions
         }
     }
 
+    /// <summary>
+    /// Static class containing common functions
+    /// </summary>
     public static class Functions
     {
         public static readonly List<Function> FUNCTIONS = new List<Function>();
@@ -94,6 +124,11 @@ namespace WpfCalculator.Expressions
             return function;
         }
 
+        /// <summary>
+        /// Finds function by it's key
+        /// </summary>
+        /// <param name="functionName">Name of the function you're looking for</param>
+        /// <returns>Function which has <paramref name="functionName"/> or throws exception when no such function exists</returns>
         public static Function FindFunction(string functionName)
         {
             foreach (Function function in FUNCTIONS)
@@ -107,6 +142,9 @@ namespace WpfCalculator.Expressions
         }
     }
 
+    /// <summary>
+    /// Builder structure to create function instances
+    /// </summary>
     public class FunctionBuilder
     {
         internal string key;
@@ -119,18 +157,31 @@ namespace WpfCalculator.Expressions
             arguments = new List<FunctionArgument>();
         }
 
+        /// <summary>
+        /// Sets function key
+        /// </summary>
+        /// <param name="_key">Key for this function</param>
         public FunctionBuilder FunctionKey(string _key)
         {
             key = _key;
             return this;
         }
 
+        /// <summary>
+        /// Sets function description
+        /// </summary>
+        /// <param name="description">Description for this function</param>
         public FunctionBuilder Description(string description)
         {
             genericDescription = description;
             return this;
         }
 
+        /// <summary>
+        /// Adds function argument
+        /// </summary>
+        /// <param name="key">Argument key - will be seen in function signature</param>
+        /// <param name="description">Argument description</param>
         public FunctionBuilder Argument(string key, string description)
         {
             if (key == null || key.Length == 0) throw new ArgumentException("Invalid argument key");
@@ -139,12 +190,20 @@ namespace WpfCalculator.Expressions
 
         }
 
+        /// <summary>
+        /// Defines how this function calculates it's result based on arguments
+        /// </summary>
+        /// <param name="_func">Operation</param>
         public FunctionBuilder Value(Func<IMathComponent[], double> _func)
         {
             func = _func;
             return this;
         }
 
+        /// <summary>
+        /// Validates values in this builder and constructs new function object
+        /// </summary>
+        /// <returns>New function instance</returns>
         public Function Build()
         {
             if (key == null || key.Length == 0) throw new ArgumentException("Invalid function key");
@@ -165,7 +224,7 @@ namespace WpfCalculator.Expressions
             ArgumentDescription = argumentDescription;
         }
 
-        public string GetFullDescription()
+        internal string GetFullDescription()
         {
             if (ArgumentDescription != null)
             {

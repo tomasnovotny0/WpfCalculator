@@ -23,8 +23,17 @@ namespace WpfCalculator.Expressions
     /// </summary>
     public class SimpleExpressionParser : IExpressionParser
     {
+        /// <summary>
+        /// Regular expression for validation numbers. Doesn't contain '-' character as it's bit specific in this implementation
+        /// </summary>
         public static readonly Regex NUMBER_COMPONENT_REGEX = new Regex("[0-9.]");
+        /// <summary>
+        /// Regular expression for reading functions.
+        /// </summary>
         public static readonly Regex VALID_FUNCTION_CHARACTERS = new Regex("[a-zA-Z]");
+        /// <summary>
+        /// Builder object which is used to build expression structure
+        /// </summary>
         protected ExpressionBuilder expressionBuilder;
         private bool ReadingValue;
 

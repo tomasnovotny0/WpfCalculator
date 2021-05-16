@@ -12,6 +12,9 @@ namespace WpfCalculator.Expressions
     /// </summary>
     public class ExpressionBuilder
     {
+        /// <summary>
+        /// Holds expression structure. Must be always: Value Operator Value ... Value
+        /// </summary>
         private readonly LinkedList<IMathComponent> components = new LinkedList<IMathComponent>();
 
         /// <summary>

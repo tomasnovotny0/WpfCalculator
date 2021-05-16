@@ -4,18 +4,31 @@ using System.Runtime.CompilerServices;
 
 namespace WpfCalculator
 {
+    /// <summary>
+    /// View model for main application window
+    /// </summary>
     class MainViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Calculator instance used by app
+        /// </summary>
         public Calculator Calculator { get; set; }
+        /// <summary>
+        /// Event handler from <see cref="INotifyPropertyChanged"/> interface
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         public MainViewModel()
         {
             Calculator = new Calculator();
-
+            // set application culture to 'en' as that has . character as decimal separator
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en");
         }
 
+        /// <summary>
+        /// Parses specified expression
+        /// </summary>
+        /// <param name="input">Expression which should be parsed</param>
         public void ParseCalculatorInput(string input)
         {
             if (input != null)

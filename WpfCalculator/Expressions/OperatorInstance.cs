@@ -1,7 +1,13 @@
 ﻿namespace WpfCalculator.Expressions
 {
+    /// <summary>
+    /// Defines specific operation between two numbers using <see cref="Expressions.Operator"/> object
+    /// </summary>
     public sealed class OperatorInstance : IOperation
     {
+        /// <summary>
+        /// Operator which is used by this operation
+        /// </summary>
         public Operator Operator { get; }
         private readonly IMathComponent number1, number2;
 
