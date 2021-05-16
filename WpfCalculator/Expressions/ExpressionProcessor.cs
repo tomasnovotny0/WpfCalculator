@@ -39,8 +39,7 @@ namespace WpfCalculator.Expressions
         public Expression ProcessExpression(string expression)
         {
             IExpressionParser parser = InstanceCreator.Invoke();
-            parser.ParserFactory = InstanceCreator;
-            return parser.Parse(Regex.Replace(expression.ToLower(), @"\s+", ""));
+            return parser.Parse(Regex.Replace(expression.ToLower(), @"\s+", ""), InstanceCreator);
         }
     }
 }

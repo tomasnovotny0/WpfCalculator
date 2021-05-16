@@ -13,7 +13,7 @@ namespace CalculatorTests
         [TestInitialize]
         public void TestInit()
         {
-            builder = new ExpressionBuilder(() => new SimpleExpressionParser());
+            builder = new ExpressionBuilder();
         }
 
         [TestMethod]
@@ -84,7 +84,7 @@ namespace CalculatorTests
         [TestMethod]
         public void TestPi()
         {
-            Expression expression = builder.Function(Functions.PI, "").Build();
+            Expression expression = builder.Function(Functions.PI, "", () => new SimpleExpressionParser()).Build();
             Assert.AreEqual(System.Math.PI, expression.GetValue(), 0.0001);
         }
     }

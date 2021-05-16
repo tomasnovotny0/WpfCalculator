@@ -25,20 +25,19 @@ namespace WpfCalculator.Expressions
     {
         public static readonly Regex NUMBER_COMPONENT_REGEX = new Regex("[0-9.]");
         public static readonly Regex VALID_FUNCTION_CHARACTERS = new Regex("[a-zA-Z]");
-        public ConstructNewParser ParserFactory { get; set; }
         protected ExpressionBuilder expressionBuilder;
         private bool ReadingValue;
 
-        public Expression Parse(string expression)
+        public Expression Parse(string expression, ConstructNewParser instanceCreator)
         {
-            expressionBuilder = new ExpressionBuilder(ParserFactory);
+            expressionBuilder = new ExpressionBuilder();
             int len = expression.Length;
-            StartReading(expression, out int readerIndex);
+            StartReading(expression, out int readerIndex, instanceCreator);
             while (readerIndex < len)
             {
                 if (ReadingValue)
                 {
-                    ParseValue(expression, ref readerIndex, false);
+                    ParseValue(expression, ref readerIndex, false, instanceCreator);
                     ReadingValue = false;
                 }
                 else
@@ -55,7 +54,8 @@ namespace WpfCalculator.Expressions
         /// </summary>
         /// <param name="expression">Expression which is being parsed</param>
         /// <param name="readerIndex">Position in expression</param>
-        protected virtual void StartReading(string expression, out int readerIndex)
+        /// <param name="instanceCreator">Parser instance creator for parsing sub-expressions</param>
+        protected virtual void StartReading(string expression, out int readerIndex, ConstructNewParser instanceCreator)
         {
             readerIndex = 0;
             if (expression.Length == 0)
@@ -63,7 +63,7 @@ namespace WpfCalculator.Expressions
             if (expression[readerIndex] == '(')
             {
                 ++readerIndex;
-                ParseExpression(expression, ref readerIndex, false);
+                ParseExpression(expression, ref readerIndex, false, instanceCreator);
                 return;
             }
             bool negative = false;
@@ -72,7 +72,7 @@ namespace WpfCalculator.Expressions
                 negative = true;
                 ++readerIndex;
             }
-            ParseValue(expression, ref readerIndex, negative);
+            ParseValue(expression, ref readerIndex, negative, instanceCreator);
         }
 
         /// <summary>
@@ -81,7 +81,8 @@ namespace WpfCalculator.Expressions
         /// <param name="expression">Expression which is being parsed</param>
         /// <param name="readerIndex">Position in expression</param>
         /// <param name="negative">Whether parsed value should be negative</param>
-        protected virtual void ParseValue(string expression, ref int readerIndex, bool negative)
+        /// <param name="instanceCreator">Parser instance creator for parsing sub-expressions</param>
+        protected virtual void ParseValue(string expression, ref int readerIndex, bool negative, ConstructNewParser instanceCreator)
         {
             // number / function / expression
             if (readerIndex >= expression.Length)
@@ -90,7 +91,7 @@ namespace WpfCalculator.Expressions
             if (firstCharacter == '(')
             {
                 ++readerIndex;
-                ParseExpression(expression, ref readerIndex, negative);
+                ParseExpression(expression, ref readerIndex, negative, instanceCreator);
             }
             else if (char.IsDigit(firstCharacter))
             {
@@ -98,7 +99,7 @@ namespace WpfCalculator.Expressions
             }
             else if (VALID_FUNCTION_CHARACTERS.IsMatch(firstCharacter.ToString()))
             {
-                ParseFunction(expression, ref readerIndex, negative);
+                ParseFunction(expression, ref readerIndex, negative, instanceCreator);
             }
         }
 
@@ -153,13 +154,14 @@ namespace WpfCalculator.Expressions
         /// <param name="expression">Expression which is being parsed</param>
         /// <param name="readerIndex">Position in expression</param>
         /// <param name="negative">Whether function value should be negative</param>
-        protected void ParseFunction(string expression, ref int readerIndex, bool negative)
+        /// <param name="instanceCreator">Parser instance creator for parsing sub-expressions</param>
+        protected void ParseFunction(string expression, ref int readerIndex, bool negative, ConstructNewParser instanceCreator)
         {
             StringBuilder functionString = new StringBuilder();
             functionString.Append(expression[readerIndex++]);
             if (readerIndex >= expression.Length)
             {
-                ParseNoParameterFunction(functionString.ToString(), negative);
+                ParseNoParameterFunction(functionString.ToString(), negative, instanceCreator);
                 return;
             }
             while (readerIndex < expression.Length)
@@ -172,7 +174,7 @@ namespace WpfCalculator.Expressions
 
                     if(readerIndex >= expression.Length)
                     {
-                        ParseNoParameterFunction(functionString.ToString(), negative);
+                        ParseNoParameterFunction(functionString.ToString(), negative, instanceCreator);
                         break;
                     }
                 }
@@ -181,12 +183,12 @@ namespace WpfCalculator.Expressions
                     Function function = Functions.FindFunction(functionString.ToString());
                     readerIndex++;
                     string parameters = GetExpression(expression, ref readerIndex);
-                    expressionBuilder.Function(function, parameters, negative);
+                    expressionBuilder.Function(function, parameters, negative, instanceCreator);
                     break;
                 }
                 else
                 {
-                    ParseNoParameterFunction(functionString.ToString(), negative);
+                    ParseNoParameterFunction(functionString.ToString(), negative, instanceCreator);
                     break;
                 }
             }
@@ -198,11 +200,12 @@ namespace WpfCalculator.Expressions
         /// </summary>
         /// <param name="funcName">Function key - such as <code>sin</code></param>
         /// <param name="negative">Whether function value should be negative</param>
-        protected void ParseNoParameterFunction(string funcName, bool negative)
+        /// <param name="instanceCreator">Parser instance creator for parsing sub-expressions</param>
+        protected void ParseNoParameterFunction(string funcName, bool negative, ConstructNewParser instanceCreator)
         {
             Function function = Functions.FindFunction(funcName);
             if (function.InputCount != 0) throw new InvalidExpressionSyntaxException("Invalid function syntax");
-            expressionBuilder.Function(function, "", negative);
+            expressionBuilder.Function(function, "", negative, instanceCreator);
         }
 
         /// <summary>
@@ -241,9 +244,10 @@ namespace WpfCalculator.Expressions
         /// <param name="expression">Expression being parsed</param>
         /// <param name="readerIndex">Position in expression</param>
         /// <param name="negative">Whether expression value should be negative</param>
-        protected void ParseExpression(string expression, ref int readerIndex, bool negative)
+        /// <param name="instanceCreator">Parser instance creator for parsing sub-expressions</param>
+        protected void ParseExpression(string expression, ref int readerIndex, bool negative, ConstructNewParser instanceCreator)
         {
-            expressionBuilder.Expression(GetExpression(expression, ref readerIndex), negative);
+            expressionBuilder.Expression(GetExpression(expression, ref readerIndex), negative, instanceCreator);
         }
     }
 }

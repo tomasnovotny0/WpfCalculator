@@ -12,17 +12,7 @@ namespace WpfCalculator.Expressions
     /// </summary>
     public class ExpressionBuilder
     {
-        private readonly ConstructNewParser parserFactory;
         private readonly LinkedList<IMathComponent> components = new LinkedList<IMathComponent>();
-
-        /// <summary>
-        /// Constructs new builder instance.
-        /// </summary>
-        /// <param name="_parserFactory">Instance creator for <see cref="IExpressionParser"/>. Makes sure sub-expressions will be parsed by your defined <see cref="IExpressionParser"/></param>
-        public ExpressionBuilder(ConstructNewParser _parserFactory)
-        {
-            parserFactory = _parserFactory;
-        }
 
         /// <summary>
         /// Converts raw number to math component and inserts it into internal data structure.
@@ -53,14 +43,16 @@ namespace WpfCalculator.Expressions
 
         /// <summary>
         /// Converts Function and it's parameters to math component and inserts it into internal data structure.
-        /// Internally calls <see cref="Function(Expressions.Function, string, bool)"/> with <code>false</code> negative parameter
+        /// Internally calls <see cref="Function(Expressions.Function, string, bool, ConstructNewParser)"/> with <code>false</code> negative parameter
         /// </summary>
         /// <param name="function">Function type</param>
-        /// <param name="funcExpression">Function parameter expression. Can be empty string if function has no parameters. Parameters must be separated by <see cref="Expressions.Function.FUNCTION_PARAMETER_SEPARATOR"/></param>
+        /// <param name="funcExpression">Function parameter expression. Can be empty string if function has no parameters.
+        /// Parameters must be separated by <see cref="Expressions.Function.FUNCTION_PARAMETER_SEPARATOR"/></param>
+        /// <param name="instanceCreator">Parser instance creator for parsing sub-expressions</param>
         /// <returns>This builder</returns>
-        public ExpressionBuilder Function(Function function, string funcExpression)
+        public ExpressionBuilder Function(Function function, string funcExpression, ConstructNewParser instanceCreator)
         {
-            return Function(function, funcExpression, false);
+            return Function(function, funcExpression, false, instanceCreator);
         }
 
         /// <summary>
@@ -69,8 +61,9 @@ namespace WpfCalculator.Expressions
         /// <param name="function">Function type</param>
         /// <param name="funcExpression">Function parameter expression. Can be empty string if function has no parameters. Parameters must be separated by <see cref="Expressions.Function.FUNCTION_PARAMETER_SEPARATOR"/></param>
         /// <param name="negative">Whether function result should be negative</param>
+        /// <param name="instanceCreator">Parser instance creator for parsing sub-expressions</param>
         /// <returns>This builder</returns>
-        public ExpressionBuilder Function(Function function, string funcExpression, bool negative)
+        public ExpressionBuilder Function(Function function, string funcExpression, bool negative, ConstructNewParser instanceCreator)
         {
             string[] parameters;
             if (funcExpression.Length == 0)
@@ -81,7 +74,7 @@ namespace WpfCalculator.Expressions
             {
                 parameters = funcExpression.Split(Expressions.Function.FUNCTION_PARAMETER_SEPARATOR);
             }
-            IMathComponent component = new OperationComponent(new FunctionInstance(function, parameters.Length == 0 ? new IMathComponent[0] : ConvertToComponents(parameters)))
+            IMathComponent component = new OperationComponent(new FunctionInstance(function, parameters.Length == 0 ? new IMathComponent[0] : ConvertToComponents(parameters, instanceCreator)))
             {
                 Negative = negative
             };
@@ -102,13 +95,14 @@ namespace WpfCalculator.Expressions
 
         /// <summary>
         /// Parses <paramref name="expression"/> into new <see cref="Expressions.Expression"/> object and inserts it into internal data structure.
-        /// Internally calls <see cref="Expression(string, bool)"/> with <code>false</code> negative parameter
+        /// Internally calls <see cref="Expression(string, bool, ConstructNewParser)"/> with <code>false</code> negative parameter
         /// </summary>
         /// <param name="expression">Expression in string format</param>
+        /// <param name="instanceCreator">Parser instance creator for parsing sub-expressions</param>
         /// <returns>This builder</returns>
-        public ExpressionBuilder Expression(string expression)
+        public ExpressionBuilder Expression(string expression, ConstructNewParser instanceCreator)
         {
-            return Expression(expression, false);
+            return Expression(expression, false, instanceCreator);
         }
 
         /// <summary>
@@ -116,12 +110,12 @@ namespace WpfCalculator.Expressions
         /// </summary>
         /// <param name="expression">Expression in string format</param>
         /// <param name="negative">Whether expression result should be negative</param>
+        /// <param name="instanceCreator">Parser instance creator for parsing sub-expressions</param>
         /// <returns></returns>
-        public ExpressionBuilder Expression(string expression, bool negative)
+        public ExpressionBuilder Expression(string expression, bool negative, ConstructNewParser instanceCreator)
         {
-            IExpressionParser parser = parserFactory.Invoke();
-            parser.ParserFactory = parserFactory;
-            Expression expr = parser.Parse(expression);
+            IExpressionParser parser = instanceCreator.Invoke();
+            Expression expr = parser.Parse(expression, instanceCreator);
             expr.Negative = negative;
             components.AddLast(expr);
             return this;
@@ -185,14 +179,13 @@ namespace WpfCalculator.Expressions
             }
         }
 
-        private IMathComponent[] ConvertToComponents(string[] expressionArray)
+        private IMathComponent[] ConvertToComponents(string[] expressionArray, ConstructNewParser instanceCreator)
         {
             IMathComponent[] mathComponents = new IMathComponent[expressionArray.Length];
             for (int i = 0; i < expressionArray.Length; i++)
             {
-                IExpressionParser parser = parserFactory.Invoke();
-                parser.ParserFactory = parserFactory;
-                Expression expression = parser.Parse(expressionArray[i]);
+                IExpressionParser parser = instanceCreator.Invoke();
+                Expression expression = parser.Parse(expressionArray[i], instanceCreator);
                 mathComponents[i] = expression;
             }
             return mathComponents;
