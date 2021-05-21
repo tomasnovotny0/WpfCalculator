@@ -3,13 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfCalculator.View"
+        xmlns:local="clr-namespace:WpfCalculator.ViewModel"
         mc:Ignorable="d"
         Title="LauncherView" Height="540" Width="620"
         ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary Source="/Style/ButtonStyles.xaml"/>
     </Window.Resources>
+    <Window.DataContext>
+        <local:LauncherViewModel/>
+    </Window.DataContext>
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -50,8 +53,8 @@
             </StackPanel>
         </Button>
         <!--Body mass index calculator-->
-        <Button x:Name="BMIButton" Grid.Row="1" IsEnabled="False"
-                Style="{StaticResource LauncherButton}">
+        <Button x:Name="BMIButton" Grid.Row="1"
+                Style="{StaticResource LauncherButton}" Click="BMIButton_Click">
             <StackPanel>
                 <Image Source="/Icons/calculator_temp.png" Stretch="None"/>
                 <TextBlock Text="BMI" TextAlignment="Center" 

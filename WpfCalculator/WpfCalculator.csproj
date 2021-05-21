@@ -57,13 +57,23 @@
     </ApplicationDefinition>
     <Compile Include="Expressions\ExpressionProcessor.cs" />
     <Compile Include="Expressions\IExpressionParser.cs" />
+    <Compile Include="Model\BMICalculator.cs" />
+    <Compile Include="ViewModel\BMIViewModel.cs" />
     <Compile Include="ViewModel\FunctionsViewModel.cs" />
+    <Compile Include="ViewModel\LauncherViewModel.cs" />
+    <Compile Include="View\BMIView.xaml.cs">
+      <DependentUpon>BMIView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FunctionsView.xaml.cs">
       <DependentUpon>FunctionsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StandartCalculatorView.xaml.cs">
       <DependentUpon>StandartCalculatorView.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\BMIView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\LauncherView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

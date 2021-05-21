@@ -11,33 +11,26 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfCalculator.ViewModel;
 
 namespace WpfCalculator.View
 {
     /// <summary>
-    /// Interaction logic for LauncherView.xaml
+    /// Interaction logic for BMIView.xaml
     /// </summary>
-    public partial class LauncherView : Window
+    public partial class BMIView : Window
     {
-        public LauncherView()
+        public BMIView()
         {
             InitializeComponent();
         }
 
-        private void CalculatorButton_Click(object sender, RoutedEventArgs e)
+        private void CalculateButton_Click(object sender, RoutedEventArgs e)
         {
-            Open(new StandartCalculatorView());
-        }
-
-        private void BMIButton_Click(object sender, RoutedEventArgs e)
-        {
-            Open(new BMIView());
-        }
-
-        private void Open(Window window)
-        {
-            window.Show();
-            Close();
+            if (DataContext is BMIViewModel vm)
+            {
+                vm.CalculateBMI(double.Parse(HeightInput.Text), double.Parse(WeightInput.Text));
+            }
         }
     }
 }

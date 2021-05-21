@@ -21,8 +21,6 @@ namespace WpfCalculator
         public StandartCalculatorViewModel()
         {
             Calculator = new Calculator();
-            // set application culture to 'en' as that has . character as decimal separator
-            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en");
         }
 
         /// <summary>
