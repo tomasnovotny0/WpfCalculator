@@ -1,16 +1,26 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using WpfCalculator.Expressions;
-using WpfCalculator.View;
 
-namespace WpfCalculator
+namespace WpfCalculator.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for StandartCalculatorView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class StandartCalculatorView : Window
     {
-        public MainWindow()
+        public StandartCalculatorView()
         {
             InitializeComponent();
         }
@@ -144,7 +154,7 @@ namespace WpfCalculator
 
         private void InputTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ((MainViewModel)DataContext).ParseCalculatorInput(InputTextBox.Text);
+            ((StandartCalculatorViewModel)DataContext).ParseCalculatorInput(InputTextBox.Text);
         }
 
         private void ButtonPi_Click(object sender, RoutedEventArgs e)

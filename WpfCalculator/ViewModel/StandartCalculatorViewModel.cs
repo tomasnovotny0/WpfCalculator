@@ -7,7 +7,7 @@ namespace WpfCalculator
     /// <summary>
     /// View model for main application window
     /// </summary>
-    class MainViewModel : INotifyPropertyChanged
+    class StandartCalculatorViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// Calculator instance used by app
@@ -18,7 +18,7 @@ namespace WpfCalculator
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public MainViewModel()
+        public StandartCalculatorViewModel()
         {
             Calculator = new Calculator();
             // set application culture to 'en' as that has . character as decimal separator

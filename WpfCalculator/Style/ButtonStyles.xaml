@@ -45,4 +45,31 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="LauncherButton" TargetType="{x:Type Button}">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Background" Value="#EEEEEE"/>
+        <Setter Property="BorderBrush" Value="#AAAAAA"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding BorderBrush}" CornerRadius="15">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="14" Margin="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" ContentSource="Content"/>
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#A8FFF7"/>
+                <Setter Property="BorderBrush" Value="#50E5D9"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#343434"/>
+                <Setter Property="BorderBrush" Value="#121212"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>
