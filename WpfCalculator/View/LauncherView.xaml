@@ -21,7 +21,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <!--Standart calculator-->
-        <Button x:Name="CalculatorButton" Style="{StaticResource LauncherButton}">
+        <Button x:Name="CalculatorButton" Style="{StaticResource LauncherButton}" Click="CalculatorButton_Click">
             <StackPanel>
                 <Image Source="/Icons/calculator_temp.png" Stretch="None"/>
                 <TextBlock Text="Calculator" TextAlignment="Center" 

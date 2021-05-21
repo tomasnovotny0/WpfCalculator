@@ -23,5 +23,11 @@ namespace WpfCalculator.View
         {
             InitializeComponent();
         }
+
+        private void CalculatorButton_Click(object sender, RoutedEventArgs e)
+        {
+            new StandartCalculatorView().Show();
+            Close();
+        }
     }
 }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfCalculator"
         mc:Ignorable="d"
         Title="Calculator" MinHeight="400" MinWidth="400" Height="400" Width="400" 
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <local:StandartCalculatorViewModel/>
     </Window.DataContext>
