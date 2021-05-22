@@ -62,6 +62,8 @@ namespace WpfCalculator.Units
         // DISTANCE MEASUREMENT UNITS
         public static UnitType METER { get; private set; }
         public static UnitType CENTIMETER { get; private set; }
+        public static UnitType FOOT { get; private set; }
+        public static UnitType INCH { get; private set; }
 
         static UnitManager()
         {
@@ -81,6 +83,9 @@ namespace WpfCalculator.Units
             KILOGRAM = RegisterUnit(new KilogramUnit(), entries);
 
             METER = RegisterUnit(new MeterUnit(), entries);
+            CENTIMETER = RegisterUnit(new CentimeterUnit(), entries);
+            FOOT = RegisterUnit(new FootUnit(), entries);
+            INCH = RegisterUnit(new InchUnit(), entries);
         }
 
         private static void InitializeConversions(List<RegistryEntry> registryEntries)

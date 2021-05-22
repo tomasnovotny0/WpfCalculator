@@ -20,7 +20,8 @@ namespace WpfCalculator.Units
 
         public override Unit Parse(IDataSource source, UnitType targetUnit)
         {
-            throw new NotImplementedException();
+            Unit unconverted = Parse(source);
+            return UnitConverter.ConvertUnit(unconverted, targetUnit);
         }
     }
 }

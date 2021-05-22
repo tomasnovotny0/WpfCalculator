@@ -59,7 +59,7 @@
     <Compile Include="Expressions\IExpressionParser.cs" />
     <Compile Include="Model\BMICalculator.cs" />
     <Compile Include="Units\ConversionMappings.cs" />
-    <Compile Include="Units\FootUnitType.cs" />
+    <Compile Include="Units\FootUnit.cs" />
     <Compile Include="Units\IDataSource.cs" />
     <Compile Include="Units\SimpleUnitType.cs" />
     <Compile Include="Units\UnitConverter.cs" />
