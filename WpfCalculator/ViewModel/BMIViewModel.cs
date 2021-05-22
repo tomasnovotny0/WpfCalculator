@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using WpfCalculator.Model;
+using WpfCalculator.Units;
 
 namespace WpfCalculator.ViewModel
 {
@@ -34,7 +35,7 @@ namespace WpfCalculator.ViewModel
         }
 
         // TODO replace with units
-        public void CalculateBMI(double height, double weight)
+        public void CalculateBMI(Unit height, Unit weight)
         {
             double bmi = BMICalculator.GetBMI(height, weight);
             BMI = bmi.ToString("0.##");

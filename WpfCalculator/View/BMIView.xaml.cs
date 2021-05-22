@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfCalculator.Units;
 using WpfCalculator.ViewModel;
 
 namespace WpfCalculator.View
@@ -29,7 +30,11 @@ namespace WpfCalculator.View
         {
             if (DataContext is BMIViewModel vm)
             {
-                vm.CalculateBMI(double.Parse(HeightInput.Text), double.Parse(WeightInput.Text));
+                UnitType heightUnitType = UnitManager.FindUnitByKey(HeightUnit.Text);
+                UnitType weightUnitType = UnitManager.FindUnitByKey(WeightUnit.Text);
+                Unit height = heightUnitType.Parse(new StringDataSource(HeightInput.Text), UnitManager.METER);
+                Unit weight = weightUnitType.Parse(new StringDataSource(WeightInput.Text), UnitManager.KILOGRAM);
+                vm.CalculateBMI(height, weight);
             }
         }
     }

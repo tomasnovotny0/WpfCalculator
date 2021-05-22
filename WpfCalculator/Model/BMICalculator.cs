@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using WpfCalculator.Units;
 
 namespace WpfCalculator.Model
 {
     public static class BMICalculator
     {
-        public static double GetBMI(double height, double weight)
+        public static double GetBMI(Unit height, Unit weight)
         {
-            return weight / (height * height);
+            return weight.Value / (height.Value * height.Value);
         }
     }
 }

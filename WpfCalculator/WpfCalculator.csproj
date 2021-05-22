@@ -58,6 +58,14 @@
     <Compile Include="Expressions\ExpressionProcessor.cs" />
     <Compile Include="Expressions\IExpressionParser.cs" />
     <Compile Include="Model\BMICalculator.cs" />
+    <Compile Include="Units\ConversionMappings.cs" />
+    <Compile Include="Units\FootUnitType.cs" />
+    <Compile Include="Units\IDataSource.cs" />
+    <Compile Include="Units\SimpleUnitType.cs" />
+    <Compile Include="Units\UnitConverter.cs" />
+    <Compile Include="Units\Units.cs" />
+    <Compile Include="Units\UnitType.cs" />
+    <Compile Include="Units\Unit.cs" />
     <Compile Include="ViewModel\BMIViewModel.cs" />
     <Compile Include="ViewModel\FunctionsViewModel.cs" />
     <Compile Include="ViewModel\LauncherViewModel.cs" />

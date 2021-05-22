@@ -29,11 +29,11 @@
             <RowDefinition Height="*"/>
             <!--Empty space-->
             <RowDefinition Height="2*"/>
-            <!--Canvas-->
+            <!--Info-->
             <RowDefinition Height="*"/>
             <!--Result number-->
             <RowDefinition Height="25"/>
-            <!--Result as text-->
+            <!--Empty space-->
             <RowDefinition/>
             <!--Calculate button-->
             <RowDefinition Height="40"/>
