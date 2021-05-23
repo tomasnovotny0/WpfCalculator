@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfCalculator.Exceptions;
 
 namespace WpfCalculator.Units
 {
@@ -46,7 +47,14 @@ namespace WpfCalculator.Units
         /// <returns></returns>
         public virtual Unit Parse(IDataSource source)
         {
-            return new Unit(this, double.Parse(source.GetData()));
+            try
+            {
+                return new Unit(this, double.Parse(source.GetData()));
+            }
+            catch (FormatException fe)
+            {
+                throw new InvalidDataSourceException(fe.Message);
+            }
         }
 
         /// <summary>

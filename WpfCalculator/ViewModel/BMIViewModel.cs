@@ -81,6 +81,19 @@ namespace WpfCalculator.ViewModel
         }
 
         /// <summary>
+        /// Called when exception occurs while parsing inputs.
+        /// Sets background color to red and update message
+        /// </summary>
+        /// <param name="message">Message to be shown to user</param>
+        public void SetInvalidState(string message)
+        {
+            BackgroundColor = Colors.Red;
+            ResultText = message;
+            OnPropertyChanged(nameof(BackgroundColor));
+            OnPropertyChanged(nameof(ResultText));
+        }
+
+        /// <summary>
         /// Invokes property changed event for specific <paramref name="property"/>
         /// </summary>
         /// <param name="property">Name of property which has changed</param>

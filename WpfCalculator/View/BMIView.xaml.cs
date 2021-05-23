@@ -30,11 +30,18 @@ namespace WpfCalculator.View
         {
             if (DataContext is BMIViewModel vm)
             {
-                UnitType heightUnitType = HeightUnit.SelectedItem as UnitType;
-                UnitType weightUnitType = WeightUnit.SelectedItem as UnitType;
-                Unit height = heightUnitType.Parse(new StringDataSource(HeightInput.Text));
-                Unit weight = weightUnitType.Parse(new StringDataSource(WeightInput.Text));
-                vm.CalculateBMI(height, weight);
+                try
+                {
+                    UnitType heightUnitType = HeightUnit.SelectedItem as UnitType;
+                    UnitType weightUnitType = WeightUnit.SelectedItem as UnitType;
+                    Unit height = heightUnitType.Parse(new StringDataSource(HeightInput.Text));
+                    Unit weight = weightUnitType.Parse(new StringDataSource(WeightInput.Text));
+                    vm.CalculateBMI(height, weight);
+                }
+                catch (Exception)
+                {
+                    vm.SetInvalidState("Invalid input");
+                }
             }
         }
     }
