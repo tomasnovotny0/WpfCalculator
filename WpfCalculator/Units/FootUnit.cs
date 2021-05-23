@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace WpfCalculator.Units
 {
-    public class FootUnit : SimpleUnitType
+    public class FootUnit : UnitType
     {
-        public FootUnit() : base("ft")
+        public FootUnit() : base("ft", UnitCategory.LENGTH)
         {
         }
 

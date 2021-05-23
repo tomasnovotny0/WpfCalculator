@@ -30,8 +30,8 @@ namespace WpfCalculator.View
         {
             if (DataContext is BMIViewModel vm)
             {
-                UnitType heightUnitType = UnitManager.FindUnitByKey(HeightUnit.Text);
-                UnitType weightUnitType = UnitManager.FindUnitByKey(WeightUnit.Text);
+                UnitType heightUnitType = HeightUnit.SelectedItem as UnitType;
+                UnitType weightUnitType = WeightUnit.SelectedItem as UnitType;
                 Unit height = heightUnitType.Parse(new StringDataSource(HeightInput.Text), UnitManager.METER);
                 Unit weight = weightUnitType.Parse(new StringDataSource(WeightInput.Text), UnitManager.KILOGRAM);
                 vm.CalculateBMI(height, weight);

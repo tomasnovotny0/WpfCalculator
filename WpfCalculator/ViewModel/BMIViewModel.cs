@@ -17,6 +17,8 @@ namespace WpfCalculator.ViewModel
         public Color BackgroundColor { get; private set; } = Colors.White;
         public string ResultText { get; private set; } = "Unknown status";
         public string BMI { get; private set; } = "0";
+        public IList<UnitType> LengthUnits { get; }
+        public IList<UnitType> WeightUnits { get; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         static BMIViewModel()
@@ -32,6 +34,8 @@ namespace WpfCalculator.ViewModel
 
         public BMIViewModel()
         {
+            LengthUnits = UnitManager.GetUnitTypesByCriteria(type => type.Category == UnitCategory.LENGTH);
+            WeightUnits = UnitManager.GetUnitTypesByCriteria(type => type.Category == UnitCategory.WEIGHT);
         }
 
         // TODO replace with units

@@ -61,7 +61,7 @@
     <Compile Include="Units\ConversionMappings.cs" />
     <Compile Include="Units\FootUnit.cs" />
     <Compile Include="Units\IDataSource.cs" />
-    <Compile Include="Units\SimpleUnitType.cs" />
+    <Compile Include="Units\UnitCategory.cs" />
     <Compile Include="Units\UnitConverter.cs" />
     <Compile Include="Units\Units.cs" />
     <Compile Include="Units\UnitType.cs" />

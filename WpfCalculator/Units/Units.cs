@@ -7,36 +7,62 @@ using System.Threading.Tasks;
 namespace WpfCalculator.Units
 {
     #region Weight Units
-    public class KilogramUnit : SimpleUnitType
+    /// <summary>
+    /// Base unit representing kilograms [kg]
+    /// </summary>
+    public class KilogramUnit : UnitType
     {
-        public KilogramUnit() : base("kg")
+        public KilogramUnit() : base("kg", UnitCategory.WEIGHT)
         {
         }
 
         public override void InitializeUnitMappings(MappingsInitializer initializer)
         {
             initializer.AddMapping("g", 1E-3);
+            initializer.AddMapping("lb", 2.20462262);
         }
     }
     
-
-    public class GramUnit : SimpleUnitType
+    /// <summary>
+    /// Base unit representing grams [g]
+    /// </summary>
+    public class GramUnit : UnitType
     {
-        public GramUnit() : base("g")
+        public GramUnit() : base("g", UnitCategory.WEIGHT)
         {
         }
 
         public override void InitializeUnitMappings(MappingsInitializer initializer)
         {
             initializer.AddMapping("kg", 1E3);
+            initializer.AddMapping("lb", 0.00220462262);
+        }
+    }
+
+    /// <summary>
+    /// Base unit representing pounds [lb]
+    /// </summary>
+    public class PoundUnit : UnitType
+    {
+        public PoundUnit() : base("lb", UnitCategory.WEIGHT)
+        {
+        }
+
+        public override void InitializeUnitMappings(MappingsInitializer initializer)
+        {
+            initializer.AddMapping("kg", 0.45359237);
+            initializer.AddMapping("g", 453.59237);
         }
     }
     #endregion
 
     #region Distance measurement units
-    public class MeterUnit : SimpleUnitType
+    /// <summary>
+    /// Base unit representing meters [m]
+    /// </summary>
+    public class MeterUnit : UnitType
     {
-        public MeterUnit() : base("m")
+        public MeterUnit() : base("m", UnitCategory.LENGTH)
         {
 
         }
@@ -49,9 +75,12 @@ namespace WpfCalculator.Units
         }
     }
 
-    public class CentimeterUnit : SimpleUnitType
+    /// <summary>
+    /// Base unit representing centimeters [cm]
+    /// </summary>
+    public class CentimeterUnit : UnitType
     {
-        public CentimeterUnit() : base("cm")
+        public CentimeterUnit() : base("cm", UnitCategory.LENGTH)
         {
 
         }
@@ -64,9 +93,12 @@ namespace WpfCalculator.Units
         }
     }
 
-    public class InchUnit : SimpleUnitType
+    /// <summary>
+    /// Base unit representing inches [in]
+    /// </summary>
+    public class InchUnit : UnitType
     {
-        public InchUnit() : base("in")
+        public InchUnit() : base("in", UnitCategory.LENGTH)
         {
 
         }

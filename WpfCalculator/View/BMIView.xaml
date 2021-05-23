@@ -40,16 +40,12 @@
         </Grid.RowDefinitions>
         <TextBox x:Name="HeightInput" Grid.Row="1" Margin="0 0 5 0" VerticalContentAlignment="Center"/>
         <TextBox x:Name="WeightInput" Grid.Row="3" Margin="0 0 5 0" VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="HeightUnit" Grid.Row="1" Grid.Column="1" Margin="5 0 0 0" SelectedIndex="0" VerticalContentAlignment="Center">
-            <ComboBoxItem Content="m"/>
-            <ComboBoxItem Content="cm"/>
-            <ComboBoxItem Content="ft"/>
-            <ComboBoxItem Content="in"/>
-        </ComboBox>
-        <ComboBox x:Name="WeightUnit" Grid.Row="3" Grid.Column="1" Margin="5 0 0 0" SelectedIndex="0" VerticalContentAlignment="Center">
-            <ComboBoxItem Content="kg"/>
-            <ComboBoxItem Content="lb"/>
-        </ComboBox>
+        <ComboBox x:Name="HeightUnit" Grid.Row="1" Grid.Column="1" 
+                  Margin="5 0 0 0" SelectedIndex="1" VerticalContentAlignment="Center"
+                  ItemsSource="{Binding LengthUnits}" DisplayMemberPath="UnitKey"/>
+        <ComboBox x:Name="WeightUnit" Grid.Row="3" Grid.Column="1" 
+                  Margin="5 0 0 0" SelectedIndex="1" VerticalContentAlignment="Center"
+                  ItemsSource="{Binding WeightUnits}" DisplayMemberPath="UnitKey"/>
         <Rectangle x:Name="ColorResultCanvas" Grid.Row="5" Grid.ColumnSpan="2">
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
