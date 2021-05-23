@@ -67,8 +67,8 @@
                 <Setter Property="BorderBrush" Value="#50E5D9"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" Value="#343434"/>
-                <Setter Property="BorderBrush" Value="#121212"/>
+                <Setter Property="Background" Value="#999999"/>
+                <Setter Property="BorderBrush" Value="#78797A"/>
             </Trigger>
         </Style.Triggers>
     </Style>
