@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace WpfCalculator.Units
 {
+    /// <summary>
+    /// Foot unit type.
+    /// Has overriden parsing method, which allows to parse both feet and inches
+    /// from one value.
+    /// For example 5f9 resolves to 5ft 9in.
+    /// It can also be defined normally in decimal spaces
+    /// </summary>
     public class FootUnit : UnitType
     {
         public FootUnit() : base("ft", UnitCategory.LENGTH)

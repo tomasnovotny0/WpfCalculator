@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace WpfCalculator.Units
 {
+    /// <summary>
+    /// Represents unit category.
+    /// </summary>
     public enum UnitCategory
     {
         WEIGHT,

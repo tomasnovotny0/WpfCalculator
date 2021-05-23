@@ -6,9 +6,18 @@ using System.Threading.Tasks;
 
 namespace WpfCalculator.Units
 {
+    /// <summary>
+    /// Unit structure. Contains <see cref="UnitType"/> and numeric value
+    /// </summary>
     public struct Unit
     {
+        /// <summary>
+        /// Unit type
+        /// </summary>
         public UnitType UnitType { get; }
+        /// <summary>
+        /// Unit value
+        /// </summary>
         public double Value { get; }
 
         public Unit(UnitType unitType, double value)
