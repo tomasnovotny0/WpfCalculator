@@ -16,6 +16,6 @@ Elements listed below are not completed yet
 ## Images
 
 ### Standart Calculator
-![Standart Calculator](https://imgur.com/a/kbo0rBG)
+![Standart Calculator](https://i.imgur.com/GHDUpzb.png)
 
 ### BMI Calculator
