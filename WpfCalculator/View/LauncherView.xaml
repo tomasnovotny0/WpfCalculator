@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfCalculator.ViewModel"
         mc:Ignorable="d"
-        Title="LauncherView" Height="540" Width="620"
+        Title="Launcher" Height="540" Width="620"
         ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary Source="/Style/ButtonStyles.xaml"/>

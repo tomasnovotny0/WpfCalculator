@@ -38,7 +38,9 @@
             <!--Calculate button-->
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
+        <Label Content="Height" VerticalContentAlignment="Bottom" FontSize="14" FontFamily="Arial"/>
         <TextBox x:Name="HeightInput" Grid.Row="1" Margin="0 0 5 0" VerticalContentAlignment="Center"/>
+        <Label Content="Weight" VerticalContentAlignment="Bottom" FontSize="14" FontFamily="Arial" Grid.Row="2"/>
         <TextBox x:Name="WeightInput" Grid.Row="3" Margin="0 0 5 0" VerticalContentAlignment="Center"/>
         <ComboBox x:Name="HeightUnit" Grid.Row="1" Grid.Column="1" 
                   Margin="5 0 0 0" SelectedIndex="1" VerticalContentAlignment="Center"
