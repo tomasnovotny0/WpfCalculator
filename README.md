@@ -19,4 +19,4 @@ Elements listed below are not completed yet
 ![Standart Calculator](https://i.imgur.com/GHDUpzb.png)
 
 ### BMI Calculator
-![BMI](https://i.imgur.com/xw3FGhr.png)
+![BMI](https://i.imgur.com/sAOU6iM.png)
