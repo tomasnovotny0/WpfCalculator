@@ -34,6 +34,11 @@ namespace WpfCalculator.View
             Open(new BMIView());
         }
 
+        private void ConverterButton_Click(object sender, RoutedEventArgs e)
+        {
+            Open(new UnitConverterView());
+        }
+
         private void Open(Window window)
         {
             window.Show();

@@ -43,8 +43,8 @@
             </StackPanel>
         </Button>
         <!--Unit converter-->
-        <Button x:Name="ConverterButton" Grid.Column="2" IsEnabled="False"
-                Style="{StaticResource LauncherButton}">
+        <Button x:Name="ConverterButton" Grid.Column="2"
+                Style="{StaticResource LauncherButton}" Click="ConverterButton_Click">
             <StackPanel>
                 <Image Source="/Icons/calculator_temp.png" Stretch="None"/>
                 <TextBlock Text="Unit Converter" TextAlignment="Center"

@@ -70,6 +70,7 @@
     <Compile Include="ViewModel\BMIViewModel.cs" />
     <Compile Include="ViewModel\FunctionsViewModel.cs" />
     <Compile Include="ViewModel\LauncherViewModel.cs" />
+    <Compile Include="ViewModel\UnitConverterViewModel.cs" />
     <Compile Include="View\BMIView.xaml.cs">
       <DependentUpon>BMIView.xaml</DependentUpon>
     </Compile>
@@ -78,6 +79,9 @@
     </Compile>
     <Compile Include="View\StandartCalculatorView.xaml.cs">
       <DependentUpon>StandartCalculatorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UnitConverterView.xaml.cs">
+      <DependentUpon>UnitConverterView.xaml</DependentUpon>
     </Compile>
     <Page Include="View\BMIView.xaml">
       <SubType>Designer</SubType>
@@ -114,6 +118,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\StandartCalculatorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UnitConverterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
