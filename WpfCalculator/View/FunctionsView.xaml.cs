@@ -35,7 +35,7 @@ namespace WpfCalculator.View
 
         private void SelectFunction(Function function)
         {
-            ((FunctionsViewModel)DataContext).SelectFunction(function);
+            ((FunctionsViewModel)DataContext).SelectedFunction = function;
         }
 
         private void FunctionSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)

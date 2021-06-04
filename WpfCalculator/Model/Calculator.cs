@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using WpfCalculator.Exceptions;
 using WpfCalculator.Expressions;
@@ -9,7 +11,7 @@ namespace WpfCalculator
     /// Contains <see cref="Expressions.ExpressionProcessor"/> for processing various expressions.
     /// Also contains properties which are bound to window elements
     /// </summary>
-    class Calculator
+    class Calculator : INotifyPropertyChanged
     {
         /// <summary>
         /// Brush which sets foreground color of output label in calculator window.
@@ -20,12 +22,24 @@ namespace WpfCalculator
         /// Numerical value of last processed expression.
         /// Attached via binding
         /// </summary>
-        public double OutputValue { get; private set; } = 0.0;
+        public double OutputValue
+        {
+            get => _result;
+            set
+            {
+                _result = value;
+                OnPropertyChanged();
+            }
+        }
+
         /// <summary>
         /// Processor used to process expressions.
         /// Uses <see cref="SimpleExpressionParser"/> implementation
         /// </summary>
         public ExpressionProcessor ExpressionProcessor { get; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private double _result;
         private bool errored;
 
         public Calculator()
@@ -63,6 +77,11 @@ namespace WpfCalculator
             {
                 OutputValue = double.NaN;
             }
+        }
+
+        private void OnPropertyChanged([CallerMemberName] string property = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
     }
 }

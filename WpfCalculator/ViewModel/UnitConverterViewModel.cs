@@ -12,12 +12,47 @@ namespace WpfCalculator.ViewModel
     public class UnitConverterViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public double ConversionRate { get; private set; }
-        public double Result { get; private set; }
+        #region Properties
+        public double ConversionRate
+        {
+            get => _conversionRate;
+            set
+            {
+                _conversionRate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public double Result
+        {
+            get => _result;
+            set
+            {
+                _result = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public IList<UnitType> CompatibleUnitTypes
+        {
+            get => _compatibleUnitTypes;
+            set
+            {
+                _compatibleUnitTypes = value;
+                OnPropertyChanged();
+            }
+        }
+
         public IList<UnitType> AvailableUnitTypes { get; }
-        public IList<UnitType> CompatibleUnitTypes { get; }
         private UnitType BaseUnit { get; set; }
         private UnitType TargetUnit { get; set; }
+        #endregion
+
+        #region Private variables
+        private double _conversionRate;
+        private double _result;
+        private IList<UnitType> _compatibleUnitTypes;
+        #endregion
 
         public UnitConverterViewModel()
         {

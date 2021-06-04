@@ -9,10 +9,17 @@ namespace WpfCalculator.ViewModel
     /// </summary>
     public class FunctionsViewModel : INotifyPropertyChanged
     {
+        private Function _function;
         /// <summary>
         /// Currently selected function instance
         /// </summary>
-        public Function SelectedFunction { get; private set; }
+        public Function SelectedFunction {
+            get => _function;
+            set {
+                _function = value;
+                OnPropertyChanged();
+            } 
+        }
 
         /// <summary>
         /// Event handler from <see cref="INotifyPropertyChanged"/> interface
@@ -20,20 +27,10 @@ namespace WpfCalculator.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Selects specific <paramref name="function"/> and invokes property changed event
-        /// </summary>
-        /// <param name="function">Function which has been selected</param>
-        public void SelectFunction(Function function)
-        {
-            SelectedFunction = function;
-            OnPropertyChanged(nameof(SelectedFunction));
-        }
-
-        /// <summary>
         /// Invokes property changed event
         /// </summary>
         /// <param name="property">name of the property which was changed</param>
-        public void OnPropertyChanged([CallerMemberName] string property = null)
+        public void OnPropertyChanged([CallerMemberName] string property = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }

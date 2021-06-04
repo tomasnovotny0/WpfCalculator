@@ -21,6 +21,7 @@ namespace WpfCalculator
         public StandartCalculatorViewModel()
         {
             Calculator = new Calculator();
+            Calculator.PropertyChanged += (sender, args) => OnPropertyChanged(args.PropertyName);
         }
 
         /// <summary>
@@ -39,11 +40,10 @@ namespace WpfCalculator
                 {
                     Calculator.UpdateValue(input);
                 }
-                OnPropertyChanged(nameof(Calculator));
             }
         }
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

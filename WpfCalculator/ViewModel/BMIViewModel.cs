@@ -20,18 +20,44 @@ namespace WpfCalculator.ViewModel
         /// Color mappings for all body mass index statuses
         /// </summary>
         private static readonly Dictionary<BMIStatus, Color> statusColorDict;
+
+        #region Properties
         /// <summary>
         /// Current background color based on latest BMI value
         /// </summary>
-        public Color BackgroundColor { get; private set; } = Colors.White;
+        public Color BackgroundColor
+        {
+            get => _backgroundColor;
+            set
+            {
+                _backgroundColor = value;
+                OnPropertyChanged();
+            }
+        }
         /// <summary>
         /// Description of BMI value
         /// </summary>
-        public string ResultText { get; private set; } = "Unknown status";
+        public string ResultText
+        {
+            get => _resultText;
+            set
+            {
+                _resultText = value;
+                OnPropertyChanged();
+            }
+        }
         /// <summary>
         /// Body mass index value
         /// </summary>
-        public string BMI { get; private set; } = "0";
+        public string BMI
+        {
+            get => _bmi;
+            set
+            {
+                _bmi = value;
+                OnPropertyChanged();
+            }
+        }
         /// <summary>
         /// List of all length units
         /// </summary>
@@ -40,10 +66,18 @@ namespace WpfCalculator.ViewModel
         /// List of all weight units
         /// </summary>
         public IList<UnitType> WeightUnits { get; }
+        #endregion
+
         /// <summary>
         /// Event handler from <see cref="INotifyPropertyChanged"/> interface
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        #region Private variables
+        private Color _backgroundColor = Colors.White;
+        private string _resultText = "Unknown status";
+        private string _bmi = "0";
+        #endregion
 
         /// <summary>
         /// class constructor, initializes BMI status -> color mappings
@@ -74,7 +108,6 @@ namespace WpfCalculator.ViewModel
         {
             double bmi = BMICalculator.GetBMI(height, weight);
             BMI = bmi.ToString("0.##"); // format to 2 decimal spaces
-            OnPropertyChanged(nameof(BMI));
             BMIStatus status = GetBMIStatus(bmi);
             UpdateColor(status);
             UpdateDisplayedText(status);
@@ -89,15 +122,13 @@ namespace WpfCalculator.ViewModel
         {
             BackgroundColor = Colors.Red;
             ResultText = message;
-            OnPropertyChanged(nameof(BackgroundColor));
-            OnPropertyChanged(nameof(ResultText));
         }
 
         /// <summary>
         /// Invokes property changed event for specific <paramref name="property"/>
         /// </summary>
         /// <param name="property">Name of property which has changed</param>
-        private void OnPropertyChanged([CallerMemberName] string property = null)
+        private void OnPropertyChanged([CallerMemberName] string property = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -112,7 +143,6 @@ namespace WpfCalculator.ViewModel
             if (color != BackgroundColor)
             {
                 BackgroundColor = color;
-                OnPropertyChanged(nameof(BackgroundColor));
             }
         }
 
@@ -126,7 +156,6 @@ namespace WpfCalculator.ViewModel
             if (statusText != ResultText)
             {
                 ResultText = statusText;
-                OnPropertyChanged(nameof(ResultText));
             }
         }
 
